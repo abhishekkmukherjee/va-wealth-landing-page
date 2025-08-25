@@ -1,1440 +1,1508 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vedant Wealth - Smart Bond Investments</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-
-    body {
-      font-family: 'Poppins', sans-serif;
-    }
-
-    /* --- Animations (deduplicated) --- */
-    @keyframes float {
-
-      0%,
-      100% {
-        transform: translateY(0px) rotate(0deg);
-      }
-
-      50% {
-        transform: translateY(-15px) rotate(2deg);
-      }
-    }
-
-    @keyframes floatReverse {
-
-      0%,
-      100% {
-        transform: translateY(0px) rotate(0deg);
-      }
-
-      50% {
-        transform: translateY(15px) rotate(-2deg);
-      }
-    }
-
-    @keyframes fadeInUp {
-      0% {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes fadeInDown {
-      0% {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes slideInLeft {
-      from {
-        transform: translateX(-50px);
-        opacity: 0;
-      }
-
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
-
-    @keyframes slideInRight {
-      from {
-        transform: translateX(50px);
-        opacity: 0;
-      }
-
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
-
-    @keyframes pulse {
-
-      0%,
-      100% {
-        transform: scale(1);
-      }
-
-      50% {
-        transform: scale(1.05);
-      }
-    }
-
-    @keyframes bounce {
-
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-10px);
-      }
-    }
-
-    @keyframes wiggle {
-
-      0%,
-      100% {
-        transform: rotate(0deg);
-      }
-
-      25% {
-        transform: rotate(-3deg);
-      }
-
-      75% {
-        transform: rotate(3deg);
-      }
-    }
-
-    @keyframes gradientShift {
-      0% {
-        background-position: 0% 50%;
-      }
-
-      50% {
-        background-position: 100% 50%;
-      }
-
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-
-    @keyframes sparkle {
-
-      0%,
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-
-      50% {
-        opacity: 0.5;
-        transform: scale(1.2);
-      }
-    }
-
-    @keyframes morphing {
-
-      0%,
-      100% {
-        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-      }
-
-      50% {
-        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
-      }
-    }
-
-    @keyframes slideUp {
-      0% {
-        opacity: 0;
-        transform: translateY(100px);
-      }
-
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes zoomIn {
-      from {
-        transform: scale(0.8);
-        opacity: 0;
-      }
-
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
-    @keyframes rotateIn {
-      0% {
-        opacity: 0;
-        transform: rotate(-180deg) scale(0.8);
-      }
-
-      100% {
-        opacity: 1;
-        transform: rotate(0deg) scale(1);
-      }
-    }
-
-    @keyframes spin-slow {
-      from {
-        transform: rotate(0deg);
-      }
-
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    @keyframes bounce-gentle {
-
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-5px);
-      }
-    }
-
-    @keyframes pulse-gentle {
-
-      0%,
-      100% {
-        opacity: 1;
-      }
-
-      50% {
-        opacity: 0.8;
-      }
-    }
-
-    @keyframes gradient-shift {
-      0% {
-        background-position: 0% 50%;
-      }
-
-      50% {
-        background-position: 100% 50%;
-      }
-
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-
-    /* --- Animation Classes --- */
-    .animate-float {
-      animation: float 4s ease-in-out infinite;
-    }
-
-    .animate-floatReverse {
-      animation: floatReverse 5s ease-in-out infinite;
-    }
-
-    .animate-fadeInUp {
-      animation: fadeInUp 0.8s ease-out forwards;
-    }
-
-    .animate-fadeInDown {
-      animation: fadeInDown 0.8s ease-out forwards;
-    }
-
-    .animate-slideInLeft {
-      animation: slideInLeft 1s ease-out;
-    }
-
-    .animate-slideInRight {
-      animation: slideInRight 1s ease-out;
-    }
-
-    .animate-pulse-gentle {
-      animation: pulse-gentle 3s ease-in-out infinite;
-    }
-
-    .animate-bounce-gentle {
-      animation: bounce-gentle 2s ease-in-out infinite;
-    }
-
-    .animate-wiggle {
-      animation: wiggle 2s ease-in-out infinite;
-    }
-
-    .animate-sparkle {
-      animation: sparkle 2s ease-in-out infinite;
-    }
-
-    .animate-morphing {
-      animation: morphing 8s ease-in-out infinite;
-    }
-
-    .animate-slideUp {
-      animation: slideUp 0.8s ease-out forwards;
-    }
-
-    .animate-zoomIn {
-      animation: zoomIn 1s ease-out;
-    }
-
-    .animate-rotateIn {
-      animation: rotateIn 0.8s ease-out forwards;
-    }
-
-    .animate-spin-slow {
-      animation: spin-slow 8s linear infinite;
-    }
-
-    .animate-gradient {
-      animation: gradient-shift 4s ease infinite;
-      background-size: 200% 200%;
-    }
-
-    /* --- Utility & Design Classes --- */
-    .gradient-bg {
-      background: linear-gradient(-45deg, #4338ca, #6366f1, #8b5cf6, #a855f7, #c084fc);
-      background-size: 400% 400%;
-      animation: gradientShift 12s ease infinite;
-    }
-
-    .indigo-gradient {
-      background: linear-gradient(135deg, #312e81 0%, #4338ca 25%, #6366f1 50%, #8b5cf6 75%, #a855f7 100%);
-      background-size: 400% 400%;
-      animation: gradientShift 15s ease infinite;
-    }
-
-    .glass-effect {
-      backdrop-filter: blur(20px);
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    }
-
-    .glass-dark {
-      backdrop-filter: blur(20px);
-      background: rgba(0, 0, 0, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    }
-
-    .card-hover {
-      transition: all 0.3s ease;
-    }
-
-    .card-hover:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 25px 50px rgba(79, 70, 229, 0.3);
-    }
-
-    .text-gradient {
-      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .floating-shapes {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      pointer-events: none;
-    }
-
-    .floating-shape {
-      position: absolute;
-      opacity: 0.1;
-      animation: float 6s ease-in-out infinite;
-    }
-
-    .floating-shape:nth-child(1) {
-      top: 20%;
-      left: 10%;
-      animation-delay: 0s;
-    }
-
-    .floating-shape:nth-child(2) {
-      top: 60%;
-      right: 10%;
-      animation-delay: 2s;
-    }
-
-    .floating-shape:nth-child(3) {
-      bottom: 20%;
-      left: 20%;
-      animation-delay: 4s;
-    }
-
-    .floating-shape:nth-child(4) {
-      top: 40%;
-      right: 30%;
-      animation-delay: 1s;
-    }
-
-    .floating-shape:nth-child(5) {
-      bottom: 40%;
-      right: 20%;
-      animation-delay: 3s;
-    }
-
-    .parallax-bg {
-      background-attachment: fixed;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
-
-    .blob {
-      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-      animation: morphing 8s ease-in-out infinite;
-    }
-
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: #1e1b4b;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: #6366f1;
-      border-radius: 4px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: #8b5cf6;
-    }
-
-    body {
-      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 25%, #3730a3 50%, #4338ca 75%, #4f46e5 100%);
-      background-size: 400% 400%;
-      animation: gradient-shift 8s ease infinite;
-      min-height: 100vh;
-    }
-
-    .delay-100 {
-      animation-delay: 100ms;
-    }
-
-    .delay-200 {
-      animation-delay: 200ms;
-    }
-
-    .delay-300 {
-      animation-delay: 300ms;
-    }
-
-    .delay-400 {
-      animation-delay: 400ms;
-    }
-
-    .delay-500 {
-      animation-delay: 500ms;
-    }
-
-    .delay-600 {
-      animation-delay: 600ms;
-    }
-
-    .delay-700 {
-      animation-delay: 700ms;
-    }
-
-    .delay-800 {
-      animation-delay: 800ms;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vedant Asset - Digital Banking Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+  
+    </script>
+    
+ <link rel="stylesheet" href="style.css">
 </head>
+<body class="bg-indigo-50 dark:bg-gray-900 transition-colors duration-300">
 
-<body class="bg-gradient-to-br from-indigo-900 via-purple-900 to-indigo-800 min-h-screen">
-  <!-- Floating background shapes -->
-  <div class="floating-shapes">
-    <div class="floating-shape w-64 h-64 bg-indigo-400 rounded-full"></div>
-    <div class="floating-shape w-48 h-48 bg-purple-400 rounded-full"></div>
-    <div class="floating-shape w-32 h-32 bg-pink-400 rounded-full"></div>
-    <div class="floating-shape w-80 h-80 bg-blue-400 rounded-full"></div>
-    <div class="floating-shape w-56 h-56 bg-violet-400 rounded-full"></div>
-  </div>
-
-  <nav class="bg-white/10 backdrop-blur-lg shadow-2xl fixed w-full z-50 top-0 border-b border-white/20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-16">
-        <div class="flex items-center">
-          <div class="flex-shrink-0 animate-pulse-gentle">
-            <h1 class="text-3xl font-extrabold text-white">
-              <span class="text-gradient">Vedant</span> Wealth
-            </h1>
-          </div>
-        </div>
-        <div class="hidden md:block">
-          <div class="ml-10 flex items-baseline space-x-8">
-            <a href="#"
-              class="text-white/80 hover:text-white px-3 py-2 text-base font-medium transition-all duration-300 hover:scale-105">Home</a>
-            <a href="#"
-              class="text-white/80 hover:text-white px-3 py-2 text-base font-medium transition-all duration-300 hover:scale-105">Bonds</a>
-            <a href="#"
-              class="text-white/80 hover:text-white px-3 py-2 text-base font-medium transition-all duration-300 hover:scale-105">Portfolio</a>
-            <a href="#"
-              class="text-white/80 hover:text-white px-3 py-2 text-base font-medium transition-all duration-300 hover:scale-105">About</a>
-            <a href="#"
-              class="text-white/80 hover:text-white px-3 py-2 text-base font-medium transition-all duration-300 hover:scale-105">Contact</a>
-          </div>
-        </div>
-        <div class="hidden md:block">
-          <button
-            class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-7 py-3 rounded-full font-semibold shadow-lg hover:from-indigo-600 hover:to-purple-700 transition-all duration-400 animate-pulse-gentle transform hover:scale-105">
-            Get Started ✨
-          </button>
-        </div>
-        <div class="-mr-2 flex md:hidden">
-          <button type="button"
-            class="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-indigo-200 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
-            aria-controls="mobile-menu" aria-expanded="false" data-collapse-toggle="mobile-menu">
-            <span class="sr-only">Open main menu</span>
-            <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-              stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-            <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-              stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="md:hidden hidden" id="mobile-menu">
-      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white/10 backdrop-blur-lg">
-        <a href="#"
-          class="text-white hover:bg-white/20 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
-        <a href="#"
-          class="text-white hover:bg-white/20 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Bonds</a>
-        <a href="#"
-          class="text-white hover:bg-white/20 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Portfolio</a>
-        <a href="#"
-          class="text-white hover:bg-white/20 hover:text-white block px-3 py-2 rounded-md text-base font-medium">About</a>
-        <a href="#"
-          class="text-white hover:bg-white/20 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Contact</a>
-      </div>
-      <div class="pt-4 pb-3 border-t border-white/20">
-        <div class="px-5">
-          <button
-            class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-5 py-2 rounded-md font-semibold shadow-md hover:from-indigo-600 hover:to-purple-700 transition-all duration-300">
-            Get Started
-          </button>
-        </div>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <section class="relative pt-28 pb-16 overflow-hidden min-h-screen flex items-center">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        <div class="space-y-8 animate-slideInLeft">
-          <div class="animate-fadeInDown delay-200">
-            <span
-              class="inline-block bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4 animate-bounce-gentle">
-              🚀 Trusted by 50,000+ Investors
-            </span>
-          </div>
-          <h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight animate-fadeInUp delay-300">
-            Smart
-            <span class="text-gradient animate-wiggle">Bond</span>
-            Investments for Your Future
-          </h1>
-          <p class="text-xl text-indigo-100 leading-relaxed max-w-lg animate-fadeInUp delay-400">
-            Build wealth with confidence through our curated selection of government and corporate bonds.
-            Secure, stable, and designed for long-term growth.
-          </p>
-          <div class="flex flex-col sm:flex-row gap-5 animate-fadeInUp delay-500">
-            <button
-              class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-10 py-4 rounded-full text-lg font-semibold hover:from-indigo-600 hover:to-purple-700 transition-all duration-400 transform hover:scale-105 shadow-xl animate-pulse-gentle">
-              Start Investing ✨
-            </button>
-            <button
-              class="border-2 border-white/50 text-white px-10 py-4 rounded-full text-lg font-semibold hover:border-white hover:bg-white/10 transition-all duration-300 hover:shadow-lg backdrop-blur-sm">
-              Learn More 📚
-            </button>
-          </div>
-          <div class="flex items-center space-x-10 text-base text-indigo-200 pt-4 animate-fadeInUp delay-600">
-            <div class="flex items-center">
-              <svg class="w-6 h-6 text-green-400 mr-2 animate-sparkle" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd"
-                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                  clip-rule="evenodd"></path>
-              </svg>
-              <span class="font-medium">SEC Registered</span>
-            </div>
-            <div class="flex items-center">
-              <svg class="w-6 h-6 text-green-400 mr-2 animate-sparkle delay-200" fill="currentColor"
-                viewBox="0 0 20 20">
-                <path fill-rule="evenodd"
-                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                  clip-rule="evenodd"></path>
-              </svg>
-              <span class="font-medium">Bank-Grade Security</span>
-            </div>
-          </div>
-        </div>
-        <div class="relative animate-slideInRight flex justify-center lg:justify-end">
-          <div class="glass-effect rounded-3xl p-10 animate-float w-full max-w-md">
-            <div class="space-y-7">
-              <div class="flex items-center justify-between animate-fadeInUp">
-                <h3 class="text-2xl font-bold text-white">Portfolio Overview 📈</h3>
-                <div class="w-4 h-4 bg-green-500 rounded-full animate-pulse"></div>
-              </div>
-              <div class="space-y-5">
-                <div
-                  class="flex items-center justify-between p-5 bg-white/10 rounded-xl shadow-sm backdrop-blur-sm animate-slideUp delay-100">
-                  <div>
-                    <p class="text-base text-indigo-200">Total Investment</p>
-                    <p class="text-3xl font-bold text-white animate-pulse-gentle">$125,000</p>
-                  </div>
-                  <div class="text-right">
-                    <p class="text-base text-indigo-200">Returns</p>
-                    <p class="text-3xl font-bold text-green-400 animate-bounce-gentle">+8.5%</p>
-                  </div>
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                  <div class="p-5 bg-white/10 rounded-xl shadow-sm backdrop-blur-sm animate-rotateIn delay-200">
-                    <p class="text-base text-indigo-200">Gov Bonds</p>
-                    <p class="text-xl font-bold text-indigo-300">65%</p>
-                  </div>
-                  <div class="p-5 bg-white/10 rounded-xl shadow-sm backdrop-blur-sm animate-rotateIn delay-300">
-                    <p class="text-base text-indigo-200">Corp Bonds</p>
-                    <p class="text-xl font-bold text-purple-300">35%</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Features Section -->
-  <section class="py-24 bg-white/5 backdrop-blur-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-20 animate-fadeInUp">
-        <h2 class="text-5xl font-extrabold text-white mb-6">Why Choose Vedant Wealth?</h2>
-        <p class="text-xl text-indigo-200 max-w-2xl mx-auto">Your trusted partner in bond investments, offering
-          security, consistent returns, and expert guidance.</p>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-        <div class="card-hover glass-effect p-10 rounded-3xl text-center shadow-lg animate-slideUp delay-100">
-          <div
-            class="w-20 h-20 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-md animate-bounce-gentle">
-            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-          </div>
-          <h3 class="text-3xl font-bold text-white mb-4">Secure & Regulated</h3>
-          <p class="text-lg text-indigo-200">All investments are SEC registered and backed by robust government
-            oversight for maximum security and peace of mind.</p>
-        </div>
-        <div class="card-hover glass-effect p-10 rounded-3xl text-center shadow-lg animate-slideUp delay-200">
-          <div
-            class="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-md animate-bounce-gentle delay-100">
-            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6">
-              </path>
-            </svg>
-          </div>
-          <h3 class="text-3xl font-bold text-white mb-4">Consistent Returns</h3>
-          <p class="text-lg text-indigo-200">Enjoy predictable and stable income streams with our carefully selected and
-            optimized bond portfolios.</p>
-        </div>
-        <div class="card-hover glass-effect p-10 rounded-3xl text-center shadow-lg animate-slideUp delay-300">
-          <div
-            class="w-20 h-20 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-md animate-bounce-gentle delay-200">
-            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
-              </path>
-            </svg>
-          </div>
-          <h3 class="text-3xl font-bold text-white mb-4">Expert Guidance</h3>
-          <p class="text-lg text-indigo-200">Our team of certified financial advisors provides personalized investment
-            strategies tailored to your goals.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Investment Options Section -->
-  <section class="py-24 relative overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-r from-indigo-600/20 to-purple-600/20"></div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div class="text-center mb-20 animate-fadeInUp">
-        <h2 class="text-5xl font-extrabold text-white mb-6">Explore Our Investment Options</h2>
-        <p class="text-xl text-indigo-200 max-w-2xl mx-auto">Choose from our diverse range of bond investments,
-          perfectly suited for different financial objectives.</p>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        <div class="card-hover glass-effect p-10 rounded-3xl shadow-xl animate-zoomIn delay-100">
-          <div class="flex items-center mb-7">
-            <div
-              class="w-14 h-14 bg-indigo-500/20 rounded-xl flex items-center justify-center mr-5 shadow-sm animate-pulse-gentle">
-              <svg class="w-7 h-7 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
-                </path>
-              </svg>
-            </div>
-            <div>
-              <h3 class="text-2xl font-bold text-white">Government Bonds 🏛️</h3>
-              <p class="text-base text-indigo-300">4.5% - 6.2% APY</p>
-            </div>
-          </div>
-          <p class="text-lg text-indigo-200 mb-8">Ultra-safe investments backed by government guarantee. Perfect for
-            conservative investors seeking stability and capital preservation.</p>
-          <button
-            class="w-full bg-gradient-to-r from-indigo-500 to-indigo-600 text-white py-4 rounded-xl font-semibold hover:from-indigo-600 hover:to-indigo-700 transition-all duration-300 shadow-md transform hover:scale-105">
-            Explore Gov Bonds
-          </button>
-        </div>
-        <div class="card-hover glass-effect p-10 rounded-3xl shadow-xl animate-zoomIn delay-200">
-          <div class="flex items-center mb-7">
-            <div
-              class="w-14 h-14 bg-purple-500/20 rounded-xl flex items-center justify-center mr-5 shadow-sm animate-pulse-gentle delay-100">
-              <svg class="w-7 h-7 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-              </svg>
-            </div>
-            <div>
-              <h3 class="text-2xl font-bold text-white">Corporate Bonds 🏢</h3>
-              <p class="text-base text-purple-300">6.8% - 9.5% APY</p>
-            </div>
-          </div>
-          <p class="text-lg text-indigo-200 mb-8">Higher yields from established corporations. Balanced risk-reward
-            profile for investors seeking enhanced returns with moderate risk.</p>
-          <button
-            class="w-full bg-gradient-to-r from-purple-500 to-purple-600 text-white py-4 rounded-xl font-semibold hover:from-purple-600 hover:to-purple-700 transition-all duration-300 shadow-md transform hover:scale-105">
-            Explore Corp Bonds
-          </button>
-        </div>
-        <div class="card-hover glass-effect p-10 rounded-3xl shadow-xl animate-zoomIn delay-300">
-          <div class="flex items-center mb-7">
-            <div
-              class="w-14 h-14 bg-emerald-500/20 rounded-xl flex items-center justify-center mr-5 shadow-sm animate-pulse-gentle delay-200">
-              <svg class="w-7 h-7 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
-                </path>
-              </svg>
-            </div>
-            <div>
-              <h3 class="text-2xl font-bold text-white">Portfolio Mix 📊</h3>
-              <p class="text-base text-emerald-300">7.2% - 10.8% APY</p>
-            </div>
-          </div>
-          <p class="text-lg text-indigo-200 mb-8">Diversified portfolio combining government and corporate bonds.
-            Optimized for maximum returns while maintaining risk balance.</p>
-          <button
-            class="w-full bg-gradient-to-r from-emerald-500 to-emerald-600 text-white py-4 rounded-xl font-semibold hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 shadow-md transform hover:scale-105">
-            View Portfolio Mix
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Performance Dashboard Section -->
-  <section class="py-24 bg-indigo-950/30 backdrop-blur-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-20 animate-fadeInUp">
-        <h2 class="text-5xl font-extrabold text-white mb-6">Real-Time Performance Dashboard</h2>
-        <p class="text-xl text-indigo-200 max-w-2xl mx-auto">Track your investments with our advanced analytics and
-          performance metrics.</p>
-      </div>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
-        <div class="glass-effect p-10 rounded-3xl shadow-2xl animate-slideInLeft">
-          <div class="flex items-center justify-between mb-8">
-            <h3 class="text-3xl font-bold text-white">Market Trends 📈</h3>
-            <div class="flex items-center space-x-2">
-              <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-              <span class="text-sm text-indigo-200">Live</span>
-            </div>
-          </div>
-          <div class="space-y-6">
-            <div
-              class="flex items-center justify-between p-5 bg-indigo-900/30 rounded-xl backdrop-blur-sm animate-slideUp delay-100">
-              <div class="flex items-center">
-                <div
-                  class="w-12 h-12 bg-indigo-500/20 rounded-full flex items-center justify-center mr-4 animate-spin-slow">
-                  <svg class="w-6 h-6 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                  </svg>
-                </div>
-                <div>
-                  <p class="text-lg font-semibold text-white">10Y Treasury</p>
-                  <p class="text-sm text-indigo-300">US Government</p>
-                </div>
-              </div>
-              <div class="text-right">
-                <p class="text-2xl font-bold text-white">4.85%</p>
-                <p class="text-sm text-green-400 animate-bounce-gentle">↗ +0.12%</p>
-              </div>
-            </div>
-            <div
-              class="flex items-center justify-between p-5 bg-indigo-900/30 rounded-xl backdrop-blur-sm animate-slideUp delay-200">
-              <div class="flex items-center">
-                <div
-                  class="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center mr-4 animate-spin-slow">
-                  <svg class="w-6 h-6 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
-                    </path>
-                  </svg>
-                </div>
-                <div>
-                  <p class="text-lg font-semibold text-white">AAA Corporate</p>
-                  <p class="text-sm text-indigo-300">Investment Grade</p>
-                </div>
-              </div>
-              <div class="text-right">
-                <p class="text-2xl font-bold text-white">6.24%</p>
-                <p class="text-sm text-green-400 animate-bounce-gentle">↗ +0.08%</p>
-              </div>
-            </div>
-            <div
-              class="flex items-center justify-between p-5 bg-indigo-900/30 rounded-xl backdrop-blur-sm animate-slideUp delay-300">
-              <div class="flex items-center">
-                <div
-                  class="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center mr-4 animate-spin-slow">
-                  <svg class="w-6 h-6 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
-                    </path>
-                  </svg>
-                </div>
-                <div>
-                  <p class="text-lg font-semibold text-white">High Yield</p>
-                  <p class="text-sm text-indigo-300">BB+ Rating</p>
-                </div>
-              </div>
-              <div class="text-right">
-                <p class="text-2xl font-bold text-white">8.97%</p>
-                <p class="text-sm text-red-400 animate-bounce-gentle">↘ -0.03%</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="glass-effect p-10 rounded-3xl shadow-2xl animate-slideInRight">
-          <h3 class="text-3xl font-bold text-white mb-8">Your Portfolio Stats 💼</h3>
-          <div class="grid grid-cols-2 gap-6 mb-8">
-            <div class="bg-indigo-900/30 p-6 rounded-2xl backdrop-blur-sm animate-zoomIn delay-100">
-              <div class="flex items-center mb-3">
-                <div
-                  class="w-10 h-10 bg-indigo-500/20 rounded-full flex items-center justify-center mr-3 animate-pulse-gentle">
-                  <svg class="w-5 h-5 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1">
-                    </path>
-                  </svg>
-                </div>
-                <span class="text-sm text-indigo-300">Total Value</span>
-              </div>
-              <p class="text-2xl font-bold text-white animate-pulse-gentle">$247,500</p>
-              <p class="text-sm text-green-400 mt-1">+12.5% YTD</p>
-            </div>
-            <div class="bg-indigo-900/30 p-6 rounded-2xl backdrop-blur-sm animate-zoomIn delay-200">
-              <div class="flex items-center mb-3">
-                <div
-                  class="w-10 h-10 bg-purple-500/20 rounded-full flex items-center justify-center mr-3 animate-pulse-gentle">
-                  <svg class="w-5 h-5 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                  </svg>
-                </div>
-                <span class="text-sm text-indigo-300">Avg Yield</span>
-              </div>
-              <p class="text-2xl font-bold text-white animate-pulse-gentle">7.8%</p>
-              <p class="text-sm text-green-400 mt-1">Above Market</p>
-            </div>
-            <div class="bg-indigo-900/30 p-6 rounded-2xl backdrop-blur-sm animate-zoomIn delay-300">
-              <div class="flex items-center mb-3">
-                <div
-                  class="w-10 h-10 bg-emerald-500/20 rounded-full flex items-center justify-center mr-3 animate-pulse-gentle">
-                  <svg class="w-5 h-5 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                </div>
-                <span class="text-sm text-indigo-300">Risk Score</span>
-              </div>
-              <p class="text-2xl font-bold text-white animate-pulse-gentle">4.2/10</p>
-              <p class="text-sm text-emerald-400 mt-1">Conservative</p>
-            </div>
-            <div class="bg-indigo-900/30 p-6 rounded-2xl backdrop-blur-sm animate-zoomIn delay-400">
-              <div class="flex items-center mb-3">
-                <div
-                  class="w-10 h-10 bg-pink-500/20 rounded-full flex items-center justify-center mr-3 animate-pulse-gentle">
-                  <svg class="w-5 h-5 text-pink-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                </div>
-                <span class="text-sm text-indigo-300">Avg Duration</span>
-              </div>
-              <p class="text-2xl font-bold text-white animate-pulse-gentle">5.4</p>
-              <p class="text-sm text-indigo-400 mt-1">Years</p>
-            </div>
-          </div>
-          <div class="bg-gradient-to-r from-indigo-600/20 to-purple-600/20 p-6 rounded-2xl backdrop-blur-sm">
-            <div class="flex items-center justify-between">
-              <span class="text-lg font-semibold text-white">Monthly Income</span>
-              <span class="text-2xl font-bold text-green-400 animate-bounce-gentle">$1,580</span>
-            </div>
-            <div class="mt-4 bg-indigo-900/30 rounded-full h-3">
-              <div class="bg-gradient-to-r from-indigo-500 to-purple-500 h-3 rounded-full animate-pulse-gentle"
-                style="width: 78%"></div>
-            </div>
-            <p class="text-sm text-indigo-300 mt-2">78% of monthly goal achieved</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Interactive Calculator Section -->
-  <section class="py-24 relative overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-br from-indigo-800/20 to-purple-800/20"></div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div class="text-center mb-20 animate-fadeInUp">
-        <h2 class="text-5xl font-extrabold text-white mb-6">Investment Calculator 🧮</h2>
-        <p class="text-xl text-indigo-200 max-w-2xl mx-auto">Calculate your potential returns and plan your bond
-          investment strategy.</p>
-      </div>
-      <div class="max-w-4xl mx-auto">
-        <div class="glass-effect p-12 rounded-3xl shadow-2xl animate-zoomIn">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div class="space-y-8">
-              <div class="animate-slideInLeft delay-100">
-                <label class="block text-lg font-semibold text-white mb-3">Investment Amount</label>
-                <div class="relative">
-                  <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-indigo-300 text-xl">$</span>
-                  <input type="number" value="50000"
-                    class="w-full pl-10 pr-4 py-4 bg-indigo-900/30 border border-indigo-500/30 rounded-xl text-white text-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent backdrop-blur-sm">
-                </div>
-              </div>
-              <div class="animate-slideInLeft delay-200">
-                <label class="block text-lg font-semibold text-white mb-3">Expected Annual Yield</label>
-                <div class="relative">
-                  <input type="range" min="3" max="12" value="7.5"
-                    class="w-full h-2 bg-indigo-700 rounded-lg appearance-none cursor-pointer">
-                  <div class="flex justify-between text-sm text-indigo-300 mt-2">
-                    <span>3%</span>
-                    <span class="font-semibold text-white">7.5%</span>
-                    <span>12%</span>
-                  </div>
-                </div>
-              </div>
-              <div class="animate-slideInLeft delay-300">
-                <label class="block text-lg font-semibold text-white mb-3">Investment Period</label>
-                <select
-                  class="w-full px-4 py-4 bg-indigo-900/30 border border-indigo-500/30 rounded-xl text-white text-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent backdrop-blur-sm">
-                  <option>1 Year</option>
-                  <option>3 Years</option>
-                  <option selected>5 Years</option>
-                  <option>10 Years</option>
-                  <option>15 Years</option>
-                  <option>20 Years</option>
-                </select>
-              </div>
-              <button
-                class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-4 rounded-xl text-lg font-semibold hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 shadow-lg transform hover:scale-105 animate-pulse-gentle">
-                Calculate Returns ⚡
-              </button>
-            </div>
-            <div class="bg-indigo-900/30 p-8 rounded-2xl backdrop-blur-sm animate-slideInRight">
-              <h3 class="text-2xl font-bold text-white mb-6">Projected Returns</h3>
-              <div class="space-y-6">
-                <div
-                  class="flex items-center justify-between p-4 bg-indigo-800/20 rounded-xl animate-fadeInUp delay-100">
-                  <span class="text-indigo-200">Initial Investment</span>
-                  <span class="text-xl font-bold text-white">$50,000</span>
-                </div>
-                <div
-                  class="flex items-center justify-between p-4 bg-indigo-800/20 rounded-xl animate-fadeInUp delay-200">
-                  <span class="text-indigo-200">Total Interest</span>
-                  <span class="text-xl font-bold text-green-400">$21,875</span>
-                </div>
-                <div
-                  class="flex items-center justify-between p-4 bg-gradient-to-r from-indigo-600/20 to-purple-600/20 rounded-xl animate-fadeInUp delay-300">
-                  <span class="text-white font-semibold">Final Amount</span>
-                  <span class="text-3xl font-bold text-white animate-pulse-gentle">$71,875</span>
-                </div>
-                <div class="bg-indigo-700/20 p-4 rounded-xl animate-fadeInUp delay-400">
-                  <div class="flex items-center justify-between mb-2">
-                    <span class="text-indigo-200">Monthly Income</span>
-                    <span class="text-lg font-bold text-purple-300">$312.50</span>
-                  </div>
-                  <div class="w-full bg-indigo-800/30 rounded-full h-2">
-                    <div class="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full animate-pulse-gentle"
-                      style="width: 75%"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonials Section -->
-  <section class="py-24 bg-indigo-950/40 backdrop-blur-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-20 animate-fadeInUp">
-        <h2 class="text-5xl font-extrabold text-white mb-6">What Our Clients Say 💬</h2>
-        <p class="text-xl text-indigo-200 max-w-2xl mx-auto">Join thousands of satisfied investors who trust Vedant
-          Wealth with their financial future.</p>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-        <div class="glass-effect p-8 rounded-3xl shadow-xl animate-slideUp delay-100 card-hover">
-          <div class="flex items-center mb-6">
-            <div
-              class="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center mr-4 animate-pulse-gentle">
-              <span class="text-white font-bold text-xl">RS</span>
-            </div>
-            <div>
-              <h4 class="text-xl font-bold text-white">Rajesh Sharma</h4>
-              <p class="text-indigo-300">Retired Engineer</p>
-            </div>
-          </div>
-          <p class="text-lg text-indigo-200 mb-6">"Vedant Wealth has been exceptional in managing my retirement
-            portfolio. The consistent returns and professional guidance have exceeded my expectations."</p>
-          <div class="flex items-center">
-            <div class="flex space-x-1">
-              <svg class="w-5 h-5 text-yellow-400 animate-sparkle" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
-                </path>
-              </svg>
-              <svg class="w-5 h-5 text-yellow-400 animate-sparkle delay-100" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
-                </path>
-              </svg>
-              <svg class="w-5 h-5 text-yellow-400 animate-sparkle delay-200" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
-                </path>
-              </svg>
-              <svg class="w-5 h-5 text-yellow-400 animate-sparkle delay-300" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
-                </path>
-              </svg>
-              <svg class="w-5 h-5 text-yellow-400 animate-sparkle delay-400" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
-                </path>
-              </svg>
-            </div>
-            <span class="text-indigo-300 ml-2">5.0</span>
-          </div>
-        </div>
-        <div class="glass-effect p-8 rounded-3xl shadow-xl animate-slideUp delay-200 card-hover">
-          <div class="flex items-center mb-6">
-            <div
-              class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-4 animate-pulse-gentle">
-              <span class="text-white font-bold text-xl">PM</span>
-            </div>
-            <div>
-              <h4 class="text-xl font-bold text-white">Priya Mehta</h4>
-              <p class="text-indigo-300">Business Owner</p>
-            </div>
-          </div>
-          <p class="text-lg text-indigo-200 mb-6">"The platform is incredibly user-friendly and the returns have been
-            consistently above market rates. I've recommended Vedant Wealth to all my friends."</p>
-          <div class="flex items-center">
-            <div class="flex space-x-1">
-              <svg class="w-5 h-5 text-yellow-400 animate-sparkle" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
-                </path>
-              </svg>
-              <svg class="w-5 h-5 text-yellow-400 animate-sparkle delay-100" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
-                </path>
-              </svg>
-              <svg class="w-5 h-5 text-yellow-400 animate-sparkle delay-200" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
-                </path>
-              </svg>
-              <svg class="w-5 h-5 text-yellow-400 animate-sparkle delay-300" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
-                </path>
-              </svg>
-              <svg class="w-5 h-5 text-yellow-400 animate-sparkle delay-400" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
-                </path>
-              </svg>
-            </div>
-            <span class="text-indigo-300 ml-2">5.0</span>
-          </div>
-        </div>
-        <div class="glass-effect p-8 rounded-3xl shadow-xl animate-slideUp delay-300 card-hover">
-          <div class="flex items-center mb-6">
-            <div
-              class="w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full flex items-center justify-center mr-4 animate-pulse-gentle">
-              <span class="text-white font-bold text-xl">AK</span>
-            </div>
-            <div>
-              <h4 class="text-xl font-bold text-white">Amit Kumar</h4>
-              <p class="text-indigo-300">IT Professional</p>
-            </div>
-          </div>
-          <p class="text-lg text-indigo-200 mb-6">"Amazing platform with transparent pricing and excellent customer
-            service. The bond selection is diverse and the returns are consistently good."</p>
-          <div class="flex items-center">
-            <div class="flex space-x-1">
-              <svg class="w-5 h-5 text-yellow-400 animate-sparkle" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
-                </path>
-              </svg>
-              <svg class="w-5 h-5 text-yellow-400 animate-sparkle delay-100" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
-                </path>
-              </svg>
-              <svg class="w-5 h-5 text-yellow-400 animate-sparkle delay-200" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
-                </path>
-              </svg>
-              <svg class="w-5 h-5 text-yellow-400 animate-sparkle delay-300" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
-                </path>
-              </svg>
-              <svg class="w-5 h-5 text-yellow-400 animate-sparkle delay-400" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
-                </path>
-              </svg>
-            </div>
-            <span class="text-indigo-300 ml-2">5.0</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Market Insights Section -->
-  <section class="py-24 relative overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-r from-indigo-900/30 via-purple-900/30 to-indigo-900/30"></div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div class="text-center mb-20 animate-fadeInUp">
-        <h2 class="text-5xl font-extrabold text-white mb-6">Market Insights & Analysis 📊</h2>
-        <p class="text-xl text-indigo-200 max-w-3xl mx-auto">Stay ahead with our expert market analysis and real-time
-          insights into bond markets and investment opportunities.</p>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-16">
-        <!-- Market Trends Chart -->
-        <div class="glass-effect p-10 rounded-3xl shadow-2xl animate-slideInLeft">
-          <div class="flex items-center justify-between mb-8">
-            <h3 class="text-3xl font-bold text-white">Bond Yield Trends 📈</h3>
+   
+<!-- Header -->
+<header class="fixed top-0 left-0 right-0 z-40 bg-white dark:bg-gray-900 shadow-lg border-b border-gray-200 dark:border-gray-700">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+        <div class="flex items-center justify-between">
+            <!-- Logo -->
             <div class="flex items-center space-x-3">
-              <div class="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></div>
-              <span class="text-sm text-indigo-200">Live Data</span>
+                <div class="relative">
+                    <img src="components/logo.webp" alt="Vedant Asset Logo" class="w-12 h-12 rounded-lg">
+                    <div class="absolute -top-1 -right-1 w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>
+                </div>
+                <span class="hidden sm:block text-sm text-gray-600 dark:text-gray-300">Digital Banking Solutions</span>
             </div>
-          </div>
-          <div class="space-y-6">
-            <div class="relative">
-              <div class="flex items-center justify-between mb-3">
-                <span class="text-indigo-200">10Y Treasury</span>
-                <span class="text-white font-semibold">4.85%</span>
-              </div>
-              <div class="w-full bg-indigo-900/40 rounded-full h-2">
-                <div class="bg-gradient-to-r from-emerald-500 to-teal-500 h-2 rounded-full animate-pulse-gentle"
-                  style="width: 48.5%"></div>
-              </div>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden lg:flex items-center space-x-8">
+                <a href="#home" class="text-gray-800 dark:text-gray-200 hover:text-orange-500 transition-colors font-medium">Home</a>
+                <a href="#about" class="text-gray-800 dark:text-gray-200 hover:text-orange-500 transition-colors font-medium">About Us</a>
+                
+                <!-- Products Dropdown -->
+                <div class="relative dropdown">
+                    <button class="text-gray-800 dark:text-gray-200 hover:text-orange-500 transition-colors font-medium flex items-center space-x-1">
+                        <span>Products</span>
+                        <i class="fas fa-chevron-down text-xs"></i>
+                    </button>
+                    <div class="dropdown-menu absolute top-full left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-600">
+                        <a href="#developer" class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-700 hover:text-orange-600 transition-colors">Vedant Developer</a>
+                        <a href="#agent" class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-700 hover:text-orange-600 transition-colors">Vedant Agent</a>
+                        <a href="#distributor" class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-700 hover:text-orange-600 transition-colors">Vedant Distributor</a>
+                        <a href="#master" class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-700 hover:text-orange-600 transition-colors">Vedant Master Distributor</a>
+                    </div>
+                </div>
+                
+                <!-- Investors Dropdown -->
+                <div class="relative dropdown">
+                    <button class="text-gray-800 dark:text-gray-200 hover:text-orange-500 transition-colors font-medium flex items-center space-x-1">
+                        <span>Investors</span>
+                        <i class="fas fa-chevron-down text-xs"></i>
+                    </button>
+                    <div class="dropdown-menu absolute top-full left-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-600">
+                        <a href="#investor-relations" class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-700 hover:text-orange-600 transition-colors">Investor Relations</a>
+                        <a href="#reports" class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-700 hover:text-orange-600 transition-colors">Financial Reports</a>
+                        <a href="#announcements" class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-700 hover:text-orange-600 transition-colors">Announcements</a>
+                    </div>
+                </div>
+                
+                <a href="#contact" class="text-gray-800 dark:text-gray-200 hover:text-orange-500 transition-colors font-medium">Contact Us</a>
             </div>
-            <div class="relative">
-              <div class="flex items-center justify-between mb-3">
-                <span class="text-indigo-200">Corporate AAA</span>
-                <span class="text-white font-semibold">6.24%</span>
-              </div>
-              <div class="w-full bg-indigo-900/40 rounded-full h-2">
-                <div class="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full animate-pulse-gentle"
-                  style="width: 62.4%"></div>
-              </div>
+
+            <!-- CTA Buttons and Theme Toggle -->
+            <div class="hidden lg:flex items-center space-x-4">
+                <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-300 border border-gray-200 dark:border-gray-600">
+                    <i class="fas fa-sun text-yellow-500 dark:hidden"></i>
+                    <i class="fas fa-moon text-blue-400 hidden dark:block"></i>
+                </button>
+                <button class="px-5 py-2 text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 transition-colors font-medium border border-orange-200 dark:border-orange-600 rounded-lg hover:bg-orange-50 dark:hover:bg-orange-900">Login</button>
+                <button class="px-5 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-all duration-300 shadow-md hover:shadow-lg font-medium">Register</button>
             </div>
-            <div class="relative">
-              <div class="flex items-center justify-between mb-3">
-                <span class="text-indigo-200">High Yield</span>
-                <span class="text-white font-semibold">8.97%</span>
-              </div>
-              <div class="w-full bg-indigo-900/40 rounded-full h-2">
-                <div class="bg-gradient-to-r from-orange-500 to-red-500 h-2 rounded-full animate-pulse-gentle"
-                  style="width: 89.7%"></div>
-              </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="lg:hidden flex items-center space-x-2">
+                <button id="theme-toggle-mobile" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-300 border border-gray-200 dark:border-gray-600">
+                    <i class="fas fa-sun text-yellow-500 dark:hidden"></i>
+                    <i class="fas fa-moon text-blue-400 hidden dark:block"></i>
+                </button>
+                <button class="p-2" id="mobile-menu-button">
+                    <i class="fas fa-bars text-gray-700 dark:text-gray-300"></i>
+                </button>
             </div>
-          </div>
-          <div class="mt-8 p-6 bg-indigo-900/20 rounded-2xl">
-            <h4 class="text-xl font-bold text-white mb-3">Weekly Performance</h4>
-            <div class="grid grid-cols-3 gap-4">
-              <div class="text-center">
-                <div class="text-2xl font-bold text-green-400 animate-bounce-gentle">+2.3%</div>
-                <div class="text-sm text-indigo-300">Government</div>
-              </div>
-              <div class="text-center">
-                <div class="text-2xl font-bold text-green-400 animate-bounce-gentle">+1.8%</div>
-                <div class="text-sm text-indigo-300">Corporate</div>
-              </div>
-              <div class="text-center">
-                <div class="text-2xl font-bold text-red-400 animate-bounce-gentle">-0.5%</div>
-                <div class="text-sm text-indigo-300">High Yield</div>
-              </div>
-            </div>
-          </div>
         </div>
 
-        <!-- Expert Analysis -->
-        <div class="glass-effect p-10 rounded-3xl shadow-2xl animate-slideInRight">
-          <h3 class="text-3xl font-bold text-white mb-8">Expert Analysis 🎯</h3>
-          <div class="space-y-6">
-            <div class="bg-indigo-900/30 p-6 rounded-2xl animate-fadeInUp delay-100">
-              <div class="flex items-center mb-4">
-                <div
-                  class="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center mr-4 animate-spin-slow">
-                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
-                    </path>
-                  </svg>
+        <!-- Mobile Menu -->
+        <div class="lg:hidden hidden mt-4 pb-4 border-t border-gray-200 dark:border-gray-700 pt-4" id="mobile-menu">
+            <div class="flex flex-col space-y-3">
+                <a href="#home" class="text-gray-800 dark:text-gray-200 hover:text-orange-500 py-2 font-medium">Home</a>
+                <a href="#about" class="text-gray-800 dark:text-gray-200 hover:text-orange-500 py-2 font-medium">About Us</a>
+                <div class="pl-4 space-y-2">
+                    <p class="text-sm font-semibold text-orange-600 dark:text-orange-400">Products</p>
+                    <a href="#developer" class="block text-gray-700 dark:text-gray-300 hover:text-orange-500 py-1">Vedant Developer</a>
+                    <a href="#agent" class="block text-gray-700 dark:text-gray-300 hover:text-orange-500 py-1">Vedant Agent</a>
+                    <a href="#distributor" class="block text-gray-700 dark:text-gray-300 hover:text-orange-500 py-1">Vedant Distributor</a>
+                    <a href="#master" class="block text-gray-700 dark:text-gray-300 hover:text-orange-500 py-1">Vedant Master Distributor</a>
                 </div>
-                <div>
-                  <h4 class="text-xl font-bold text-white">Market Outlook</h4>
-                  <p class="text-indigo-300">Next 6 Months</p>
+                <div class="pl-4 space-y-2">
+                    <p class="text-sm font-semibold text-orange-600 dark:text-orange-400">Investors</p>
+                    <a href="#investor-relations" class="block text-gray-700 dark:text-gray-300 hover:text-orange-500 py-1">Investor Relations</a>
+                    <a href="#reports" class="block text-gray-700 dark:text-gray-300 hover:text-orange-500 py-1">Financial Reports</a>
+                    <a href="#announcements" class="block text-gray-700 dark:text-gray-300 hover:text-orange-500 py-1">Announcements</a>
                 </div>
-              </div>
-              <p class="text-indigo-200">Federal Reserve policy shifts expected to create opportunities in
-                intermediate-term bonds. Duration risk remains manageable.</p>
+                <a href="#contact" class="text-gray-800 dark:text-gray-200 hover:text-orange-500 py-2 font-medium">Contact Us</a>
+                <div class="flex space-x-4 pt-4">
+                    <button class="px-4 py-2 text-orange-600 dark:text-orange-400 font-medium border border-orange-200 dark:border-orange-600 rounded-lg hover:bg-orange-50 dark:hover:bg-orange-900">Login</button>
+                    <button class="px-4 py-2 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-700">Register</button>
+                </div>
             </div>
-
-            <div class="bg-indigo-900/30 p-6 rounded-2xl animate-fadeInUp delay-200">
-              <div class="flex items-center mb-4">
-                <div
-                  class="w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full flex items-center justify-center mr-4 animate-pulse-gentle">
-                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                  </svg>
-                </div>
-                <div>
-                  <h4 class="text-xl font-bold text-white">Key Recommendation</h4>
-                  <p class="text-indigo-300">Portfolio Strategy</p>
-                </div>
-              </div>
-              <p class="text-indigo-200">Focus on 5-7 year corporate bonds with strong credit ratings. Diversify across
-                sectors for optimal risk-adjusted returns.</p>
-            </div>
-
-            <div class="bg-indigo-900/30 p-6 rounded-2xl animate-fadeInUp delay-300">
-              <div class="flex items-center mb-4">
-                <div
-                  class="w-12 h-12 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center mr-4 animate-bounce-gentle">
-                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
-                    </path>
-                  </svg>
-                </div>
-                <div>
-                  <h4 class="text-xl font-bold text-white">Risk Alert</h4>
-                  <p class="text-indigo-300">Market Conditions</p>
-                </div>
-              </div>
-              <p class="text-indigo-200">Monitor inflation indicators closely. Rising rates may impact long-duration
-                bonds. Consider laddering strategies.</p>
-            </div>
-          </div>
         </div>
-      </div>
+    </nav>
+</header>
+
+    <!-- Hero Section -->
+    <section class="pt-20 pb-16 gradient-bg relative overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-20"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                <div class="text-white order-2 lg:order-1">
+                    <h1 class="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+                        Digital Bano, 
+                        <span class="text-orange-400">Tarraki Karo</span>
+                    </h1>
+                    <p class="text-lg mb-8 text-gray-100 leading-relaxed max-w-lg">
+                        Experience the future of digital banking with Vedant Asset. We make financial services accessible, secure, and convenient for everyone across India.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="px-8 py-3 bg-white text-indigo-600 rounded-lg hover:bg-gray-100 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl">
+                            Get Started
+                        </button>
+                        <button class="px-8 py-3 border-2 border-white text-white rounded-lg hover:bg-white hover:text-indigo-600 transition-all duration-300 font-semibold">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="relative order-1 lg:order-2">
+                    <div class="hero-image animate-float">
+                        <img src="components/hero section.jpeg" alt="Vedant Asset Digital Banking" class="w-full h-80 object-cover rounded-2xl">
+                    </div>
+                    
+                    <!-- Decorative Elements -->
+                    <div class="absolute -top-4 -right-4 w-16 h-16 bg-orange-400 rounded-full opacity-30 animate-pulse-slow"></div>
+                    <div class="absolute -bottom-4 -left-4 w-12 h-12 bg-indigo-400 rounded-full opacity-30 animate-pulse-slow" style="animation-delay: 1s;"></div>
+                    <div class="absolute top-1/2 -left-8 w-8 h-8 bg-yellow-400 rounded-full opacity-40 animate-pulse-slow" style="animation-delay: 2s;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <!-- Services Section -->
+   <section id="services" class="relative py-24 section-bg overflow-hidden">
+    <!-- Floating Background Elements -->
+    <div class="floating-elements bg-blue-400" style="top: 10%; left: 10%; animation-delay: 0s;"></div>
+    <div class="floating-elements bg-purple-400" style="top: 20%; right: 20%; animation-delay: 2s;"></div>
+    <div class="floating-elements bg-pink-400" style="bottom: 30%; left: 30%; animation-delay: 4s;"></div>
+    <div class="floating-elements bg-indigo-400" style="bottom: 10%; right: 10%; animation-delay: 1s;"></div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Section Header -->
+        <div class="text-center mb-20">
+            <div class="inline-block mb-6">
+                <span class="px-6 py-3 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-200 dark:border-indigo-800 rounded-full text-indigo-600 dark:text-indigo-400 font-semibold text-sm">
+                    Financial Services
+                </span>
+            </div>
+            <h2 class="text-5xl lg:text-6xl font-black mb-8">
+                <span class="bg-gradient-to-r from-gray-900 via-indigo-800 to-purple-800 bg-clip-text text-transparent dark:from-white dark:via-indigo-300 dark:to-purple-300">
+                    Comprehensive
+                </span>
+                <br>
+                <span class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                    Digital Solutions
+                </span>
+            </h2>
+            <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                Transform your financial journey with our innovative suite of services designed to empower growth and secure your future
+            </p>
+            <div class="flex items-center justify-center mt-8">
+                <div class="w-32 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"></div>
+                <div class="w-3 h-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mx-4"></div>
+                <div class="w-32 h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
+            </div>
+        </div>
+
+      <!-- Services Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        
+        <!-- Mutual Fund Service -->
+        <div class="service-card rounded-3xl p-8 group flex flex-col justify-center" style="--primary-color: #059669; --secondary-color: #10b981;">
+            <div class="icon-container w-16 h-16 bg-gradient-to-br from-emerald-500 to-green-600 rounded-2xl flex items-center justify-center mb-6 mx-auto shadow-xl">
+                <i class="fas fa-chart-line text-2xl text-white"></i>
+            </div>
+            <h3 class="service-title text-2xl mb-4 text-center">
+                Mutual Fund
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-4 text-center leading-relaxed font-medium">
+                Invest, diversify, grow.
+            </p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 text-center leading-relaxed text-justify px-2">
+                Build wealth through smart investment strategies with our curated mutual fund portfolio designed for long-term financial growth.
+            </p>
+        </div>
+
+        <!-- Ticketing Service -->
+        <div class="service-card rounded-3xl p-8 group flex flex-col justify-center" style="--primary-color: #3b82f6; --secondary-color: #1d4ed8;">
+            <div class="icon-container w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center mb-6 mx-auto shadow-xl">
+                <i class="fas fa-ticket-alt text-2xl text-white"></i>
+            </div>
+            <h3 class="service-title text-2xl mb-4 text-center">
+                Ticketing
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-4 text-center leading-relaxed font-medium">
+                Discover, book, and embark with ease.
+            </p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 text-center leading-relaxed text-justify px-2">
+                Seamless booking experience for flights, trains, buses, and entertainment events with instant confirmations and best prices.
+            </p>
+        </div>
+
+        <!-- Insurance Service -->
+        <div class="service-card rounded-3xl p-8 group flex flex-col justify-center" style="--primary-color: #7c3aed; --secondary-color: #5b21b6;">
+            <div class="icon-container w-16 h-16 bg-gradient-to-br from-purple-600 to-violet-800 rounded-2xl flex items-center justify-center mb-6 mx-auto shadow-xl">
+                <i class="fas fa-shield-alt text-2xl text-white"></i>
+            </div>
+            <h3 class="service-title text-2xl mb-4 text-center">
+                Insurance
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-4 text-center leading-relaxed font-medium">
+                Safeguarding your future with reliable protection.
+            </p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 text-center leading-relaxed text-justify px-2">
+                Comprehensive coverage for health, life, vehicle, and property protection needs with trusted insurance partners and claims support.
+            </p>
+        </div>
+
+        <!-- Kartik Credit Service -->
+        <div class="service-card rounded-3xl p-8 group flex flex-col justify-center" style="--primary-color: #dc2626; --secondary-color: #b91c1c;">
+            <div class="icon-container w-16 h-16 bg-gradient-to-br from-red-500 to-red-700 rounded-2xl flex items-center justify-center mb-6 mx-auto shadow-xl">
+                <i class="fas fa-credit-card text-2xl text-white"></i>
+            </div>
+            <h3 class="service-title text-2xl mb-4 text-center">
+                Kartik Credit
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-4 text-center leading-relaxed font-medium">
+                Empowering dreams through hassle-free loans.
+            </p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 text-center leading-relaxed text-justify px-2">
+                Quick loan approvals with competitive interest rates for personal, business, and emergency financial needs with flexible repayment options.
+            </p>
+        </div>
+
+        <!-- Business Correspondents Service -->
+        <div class="service-card rounded-3xl p-8 group flex flex-col justify-center" style="--primary-color: #ea580c; --secondary-color: #c2410c;">
+            <div class="icon-container w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-700 rounded-2xl flex items-center justify-center mb-6 mx-auto shadow-xl">
+                <i class="fas fa-handshake text-2xl text-white"></i>
+            </div>
+            <h3 class="service-title text-2xl mb-4 text-center">
+                Business Correspondents
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-4 text-center leading-relaxed font-medium">
+                Bringing banking closer to you and rural tech.
+            </p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 text-center leading-relaxed text-justify px-2">
+                Extending financial services to underserved communities with technology-driven solutions and doorstep banking facilities across rural areas.
+            </p>
+        </div>
+
+        <!-- Digital Payments Service (New 6th Service) -->
+        <div class="service-card rounded-3xl p-8 group flex flex-col justify-center" style="--primary-color: #0891b2; --secondary-color: #0e7490;">
+            <div class="icon-container w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-700 rounded-2xl flex items-center justify-center mb-6 mx-auto shadow-xl">
+                <i class="fas fa-mobile-alt text-2xl text-white"></i>
+            </div>
+            <h3 class="service-title text-2xl mb-4 text-center">
+                Digital Payments
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-4 text-center leading-relaxed font-medium">
+                Secure, fast, and convenient transactions.
+            </p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 text-center leading-relaxed text-justify px-2">
+                Complete digital payment solutions including UPI, wallet services, bill payments, and merchant solutions for seamless financial transactions.
+            </p>
+        </div>
     </div>
-  </section>
 
-  <!-- Investment Tools Section -->
-  <section class="py-24 bg-indigo-950/50 backdrop-blur-sm">
+        <!-- Success Stats -->
+        <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="text-center group">
+                <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <i class="fas fa-users text-2xl text-white"></i>
+                </div>
+                <div class="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2">50K+</div>
+                <div class="text-gray-600 dark:text-gray-400 text-sm font-medium">Happy Customers</div>
+            </div>
+            <div class="text-center group">
+                <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <i class="fas fa-chart-line text-2xl text-white"></i>
+                </div>
+                <div class="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-2">₹500Cr+</div>
+                <div class="text-gray-600 dark:text-gray-400 text-sm font-medium">Assets Managed</div>
+            </div>
+            <div class="text-center group">
+                <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <i class="fas fa-shield-check text-2xl text-white"></i>
+                </div>
+                <div class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-2">99.9%</div>
+                <div class="text-gray-600 dark:text-gray-400 text-sm font-medium">Security Rate</div>
+            </div>
+            <div class="text-center group">
+                <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <i class="fas fa-clock text-2xl text-white"></i>
+                </div>
+                <div class="text-3xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent mb-2">24/7</div>
+                <div class="text-gray-600 dark:text-gray-400 text-sm font-medium">Support Available</div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Mutua fund classes-->
+ 
+
+    <div class="container mx-auto px-6 py-12">
+        <!-- Mutual Fund Classes Section -->
+        <div class="mb-12">
+            <!-- Section Header -->
+            <div class="flex justify-between items-center mb-8">
+                <div class="animate-float">
+                    <h2 class="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                        Mutual Fund Classes
+                    </h2>
+                    <div class="h-1 w-24 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full mt-2"></div>
+                </div>
+                <a href="fundlist.html" class="glass-effect px-6 py-3 rounded-full text-indigo-600 dark:text-indigo-400 font-semibold hover:scale-105 transition-all duration-300 hover:shadow-lg">
+                    View All <span class="ml-2">→</span>
+                </a>
+            </div>
+
+            <!-- Main Content Card -->
+            <div class="glass-effect rounded-3xl p-8 animate-pulse-slow">
+                <!-- Tab Navigation -->
+                <div class="flex space-x-2 mb-8 bg-gray-100 dark:bg-gray-800 p-2 rounded-2xl">
+                    <button class="tab-button px-6 py-3 rounded-xl font-semibold transition-all duration-300 active" data-tab="equity">
+                        Equity
+                    </button>
+                    <button class="tab-button px-6 py-3 rounded-xl font-semibold text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200" data-tab="debt">
+                        Debt
+                    </button>
+                    <button class="tab-button px-6 py-3 rounded-xl font-semibold text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200" data-tab="hybrid">
+                        Hybrid
+                    </button>
+                    <button class="tab-button px-6 py-3 rounded-xl font-semibold text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200" data-tab="other">
+                        Other
+                    </button>
+                </div>
+
+                <div id="tab-content">
+                    <!-- Equity Tab Content -->
+                    <div id="equity-content" class="tab-content">
+                        <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-8">Top Categories and Fund in Equity (3 Years)</h3>
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            
+                            <!-- Sector Funds - Energy & Power -->
+                            <div class="fund-card rounded-2xl p-6">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h4 class="font-bold text-gray-800 dark:text-gray-200 text-lg">Sector Funds - Energy & Power</h4>
+                                    <span class="text-emerald-600 font-bold text-xl bg-emerald-50 dark:bg-emerald-900 px-3 py-1 rounded-full">
+                                        ▲ 31.0%
+                                    </span>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="fund-icon w-10 h-10 rounded-full mr-3 flex items-center justify-center">
+                                                <span class="text-white font-bold">N</span>
+                                            </div>
+                                            <span class="text-sm font-medium">
+                                                <a href="indifund.html" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors cursor-pointer">
+                                                    Nippon India Power & Infra Fund(G)
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <span class="text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-900 px-2 py-1 rounded-lg">▲ 35.1%</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="fund-icon w-10 h-10 rounded-full mr-3 flex items-center justify-center">
+                                                <span class="text-white font-bold">D</span>
+                                            </div>
+                                            <span class="text-sm font-medium">
+                                                <a href="indifund.html" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors cursor-pointer">
+                                                    DSP Natural Res & New Energy Fund-Reg(G)
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <span class="text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-900 px-2 py-1 rounded-lg">▲ 24.3%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sector Funds - Infrastructure -->
+                            <div class="fund-card rounded-2xl p-6">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h4 class="font-bold text-gray-800 dark:text-gray-200 text-lg">Sector Funds - Infrastructure</h4>
+                                    <span class="text-emerald-600 font-bold text-xl bg-emerald-50 dark:bg-emerald-900 px-3 py-1 rounded-full">
+                                        ▲ 30.2%
+                                    </span>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="fund-icon w-10 h-10 rounded-full mr-3 flex items-center justify-center">
+                                                <span class="text-white font-bold">I</span>
+                                            </div>
+                                            <span class="text-sm font-medium">
+                                                <a href="indifund.html" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors cursor-pointer">
+                                                    ICICI Pru Infrastructure Fund(G)
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <span class="text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-900 px-2 py-1 rounded-lg">▲ 35.0%</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="fund-icon w-10 h-10 rounded-full mr-3 flex items-center justify-center">
+                                                <span class="text-white font-bold">H</span>
+                                            </div>
+                                            <span class="text-sm font-medium">
+                                                <a href="indifund.html" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors cursor-pointer">
+                                                    HDFC Infrastructure Fund(G)
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <span class="text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-900 px-2 py-1 rounded-lg">▲ 34.5%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Mid Cap Fund -->
+                            <div class="fund-card rounded-2xl p-6">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h4 class="font-bold text-gray-800 dark:text-gray-200 text-lg">Mid Cap Fund</h4>
+                                    <span class="text-emerald-600 font-bold text-xl bg-emerald-50 dark:bg-emerald-900 px-3 py-1 rounded-full">
+                                        ▲ 25.9%
+                                    </span>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="fund-icon w-10 h-10 rounded-full mr-3 flex items-center justify-center">
+                                                <span class="text-white font-bold">M</span>
+                                            </div>
+                                            <span class="text-sm font-medium">
+                                                <a href="indifund.html" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors cursor-pointer">
+                                                    Motilal Oswal Midcap Fund-Reg(G)
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <span class="text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-900 px-2 py-1 rounded-lg">▲ 32.6%</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="fund-icon w-10 h-10 rounded-full mr-3 flex items-center justify-center">
+                                                <span class="text-white font-bold">I</span>
+                                            </div>
+                                            <span class="text-sm font-medium">
+                                                <a href="indifund.html" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors cursor-pointer">
+                                                    Invesco India Midcap Fund(G)
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <span class="text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-900 px-2 py-1 rounded-lg">▲ 31.8%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Debt Tab Content -->
+                    <div id="debt-content" class="tab-content hidden">
+                        <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-8">Top Categories and Fund in Debt (3 Years)</h3>
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            
+                            <!-- Liquid Fund -->
+                            <div class="fund-card rounded-2xl p-6">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h4 class="font-bold text-gray-800 dark:text-gray-200 text-lg">Liquid Fund</h4>
+                                    <span class="text-emerald-600 font-bold text-xl bg-emerald-50 dark:bg-emerald-900 px-3 py-1 rounded-full">
+                                        ▲ 7.2%
+                                    </span>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="fund-icon w-10 h-10 rounded-full mr-3 flex items-center justify-center">
+                                                <span class="text-white font-bold">F</span>
+                                            </div>
+                                            <span class="text-sm font-medium">
+                                                <a href="indifund.html" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors cursor-pointer">
+                                                    Franklin India Liquid Fund-Super Inst(G)
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <span class="text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-900 px-2 py-1 rounded-lg">▲ 7.2%</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="fund-icon w-10 h-10 rounded-full mr-3 flex items-center justify-center">
+                                                <span class="text-white font-bold">S</span>
+                                            </div>
+                                            <span class="text-sm font-medium">
+                                                <a href="indifund.html" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors cursor-pointer">
+                                                    SBI Liquid Fund(G)
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <span class="text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-900 px-2 py-1 rounded-lg">▲ 7.0%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Corporate Bond Fund -->
+                            <div class="fund-card rounded-2xl p-6">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h4 class="font-bold text-gray-800 dark:text-gray-200 text-lg">Corporate Bond Fund</h4>
+                                    <span class="text-emerald-600 font-bold text-xl bg-emerald-50 dark:bg-emerald-900 px-3 py-1 rounded-full">
+                                        ▲ 8.5%
+                                    </span>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="fund-icon w-10 h-10 rounded-full mr-3 flex items-center justify-center">
+                                                <span class="text-white font-bold">H</span>
+                                            </div>
+                                            <span class="text-sm font-medium">
+                                                <a href="indifund.html" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors cursor-pointer">
+                                                    HDFC Corporate Bond Fund(G)
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <span class="text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-900 px-2 py-1 rounded-lg">▲ 8.8%</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="fund-icon w-10 h-10 rounded-full mr-3 flex items-center justify-center">
+                                                <span class="text-white font-bold">I</span>
+                                            </div>
+                                            <span class="text-sm font-medium">
+                                                <a href="indifund.html" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors cursor-pointer">
+                                                    ICICI Pru Corporate Bond Fund(G)
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <span class="text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-900 px-2 py-1 rounded-lg">▲ 8.3%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Government Securities Fund -->
+                            <div class="fund-card rounded-2xl p-6">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h4 class="font-bold text-gray-800 dark:text-gray-200 text-lg">Government Securities Fund</h4>
+                                    <span class="text-emerald-600 font-bold text-xl bg-emerald-50 dark:bg-emerald-900 px-3 py-1 rounded-full">
+                                        ▲ 6.8%
+                                    </span>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="fund-icon w-10 h-10 rounded-full mr-3 flex items-center justify-center">
+                                                <span class="text-white font-bold">S</span>
+                                            </div>
+                                            <span class="text-sm font-medium">
+                                                <a href="indifund.html" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors cursor-pointer">
+                                                    SBI Magnum Gilt Fund(G)
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <span class="text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-900 px-2 py-1 rounded-lg">▲ 7.1%</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="fund-icon w-10 h-10 rounded-full mr-3 flex items-center justify-center">
+                                                <span class="text-white font-bold">A</span>
+                                            </div>
+                                            <span class="text-sm font-medium">
+                                                <a href="indifund.html" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors cursor-pointer">
+                                                    Axis Gilt Fund(G)
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <span class="text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-900 px-2 py-1 rounded-lg">▲ 6.5%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hybrid Tab Content -->
+                    <div id="hybrid-content" class="tab-content hidden">
+                        <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-8">Top Categories and Fund in Hybrid (3 Years)</h3>
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            
+                            <!-- Aggressive Hybrid Fund -->
+                            <div class="fund-card rounded-2xl p-6">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h4 class="font-bold text-gray-800 dark:text-gray-200 text-lg">Aggressive Hybrid Fund</h4>
+                                    <span class="text-emerald-600 font-bold text-xl bg-emerald-50 dark:bg-emerald-900 px-3 py-1 rounded-full">
+                                        ▲ 15.2%
+                                    </span>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="fund-icon w-10 h-10 rounded-full mr-3 flex items-center justify-center">
+                                                <span class="text-white font-bold">I</span>
+                                            </div>
+                                            <span class="text-sm font-medium">
+                                                <a href="indifund.html" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors cursor-pointer">
+                                                    ICICI Pru Equity & Debt Fund(G)
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <span class="text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-900 px-2 py-1 rounded-lg">▲ 16.8%</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="fund-icon w-10 h-10 rounded-full mr-3 flex items-center justify-center">
+                                                <span class="text-white font-bold">S</span>
+                                            </div>
+                                            <span class="text-sm font-medium">
+                                                <a href="indifund.html" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors cursor-pointer">
+                                                    SBI Equity Hybrid Fund(G)
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <span class="text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-900 px-2 py-1 rounded-lg">▲ 15.5%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Conservative Hybrid Fund -->
+                            <div class="fund-card rounded-2xl p-6">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h4 class="font-bold text-gray-800 dark:text-gray-200 text-lg">Conservative Hybrid Fund</h4>
+                                    <span class="text-emerald-600 font-bold text-xl bg-emerald-50 dark:bg-emerald-900 px-3 py-1 rounded-full">
+                                        ▲ 11.8%
+                                    </span>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="fund-icon w-10 h-10 rounded-full mr-3 flex items-center justify-center">
+                                                <span class="text-white font-bold">H</span>
+                                            </div>
+                                            <span class="text-sm font-medium">
+                                                <a href="indifund.html" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors cursor-pointer">
+                                                    HDFC Balanced Advantage Fund(G)
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <span class="text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-900 px-2 py-1 rounded-lg">▲ 12.3%</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="fund-icon w-10 h-10 rounded-full mr-3 flex items-center justify-center">
+                                                <span class="text-white font-bold">A</span>
+                                            </div>
+                                            <span class="text-sm font-medium">
+                                                <a href="indifund.html" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors cursor-pointer">
+                                                    Aditya Birla SL Balanced Advantage Fund(G)
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <span class="text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-900 px-2 py-1 rounded-lg">▲ 11.4%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Multi Asset Fund -->
+                            <div class="fund-card rounded-2xl p-6">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h4 class="font-bold text-gray-800 dark:text-gray-200 text-lg">Multi Asset Fund</h4>
+                                    <span class="text-emerald-600 font-bold text-xl bg-emerald-50 dark:bg-emerald-900 px-3 py-1 rounded-full">
+                                        ▲ 13.4%
+                                    </span>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="fund-icon w-10 h-10 rounded-full mr-3 flex items-center justify-center">
+                                                <span class="text-white font-bold">N</span>
+                                            </div>
+                                            <span class="text-sm font-medium">
+                                                <a href="indifund.html" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors cursor-pointer">
+                                                    Nippon India Multi Asset Fund(G)
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <span class="text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-900 px-2 py-1 rounded-lg">▲ 14.8%</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="fund-icon w-10 h-10 rounded-full mr-3 flex items-center justify-center">
+                                                <span class="text-white font-bold">K</span>
+                                            </div>
+                                            <span class="text-sm font-medium">
+                                                <a href="indifund.html" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors cursor-pointer">
+                                                    Kotak Asset Allocation Fund(G)
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <span class="text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-900 px-2 py-1 rounded-lg">▲ 12.9%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Other Tab Content -->
+                    <div id="other-content" class="tab-content hidden">
+                        <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-8">Top Categories and Fund in Other (3 Years)</h3>
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            
+                            <!-- ELSS -->
+                            <div class="fund-card rounded-2xl p-6">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h4 class="font-bold text-gray-800 dark:text-gray-200 text-lg">ELSS</h4>
+                                    <span class="text-emerald-600 font-bold text-xl bg-emerald-50 dark:bg-emerald-900 px-3 py-1 rounded-full">
+                                        ▲ 18.5%
+                                    </span>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="fund-icon w-10 h-10 rounded-full mr-3 flex items-center justify-center">
+                                                <span class="text-white font-bold">M</span>
+                                            </div>
+                                            <span class="text-sm font-medium">
+                                                <a href="indifund.html" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors cursor-pointer">
+                                                    Mirae Asset Tax Saver Fund(G)
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <span class="text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-900 px-2 py-1 rounded-lg">▲ 22.1%</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="fund-icon w-10 h-10 rounded-full mr-3 flex items-center justify-center">
+                                                <span class="text-white font-bold">A</span>
+                                            </div>
+                                            <span class="text-sm font-medium">
+                                                <a href="indifund.html" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors cursor-pointer">
+                                                    Axis Long Term Equity Fund(G)
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <span class="text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-900 px-2 py-1 rounded-lg">▲ 19.3%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Index Funds -->
+                            <div class="fund-card rounded-2xl p-6">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h4 class="font-bold text-gray-800 dark:text-gray-200 text-lg">Index Funds</h4>
+                                    <span class="text-emerald-600 font-bold text-xl bg-emerald-50 dark:bg-emerald-900 px-3 py-1 rounded-full">
+                                        ▲ 14.7%
+                                    </span>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="fund-icon w-10 h-10 rounded-full mr-3 flex items-center justify-center">
+                                                <span class="text-white font-bold">U</span>
+                                            </div>
+                                            <span class="text-sm font-medium">
+                                                <a href="indifund.html" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors cursor-pointer">
+                                                    UTI Nifty Index Fund(G)
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <span class="text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-900 px-2 py-1 rounded-lg">▲ 14.9%</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="fund-icon w-10 h-10 rounded-full mr-3 flex items-center justify-center">
+                                                <span class="text-white font-bold">I</span>
+                                            </div>
+                                            <span class="text-sm font-medium">
+                                                <a href="indifund.html" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors cursor-pointer">
+                                                    ICICI Pru Nifty Index Fund(G)
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <span class="text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-900 px-2 py-1 rounded-lg">▲ 14.5%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- International Funds -->
+                            <div class="fund-card rounded-2xl p-6">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h4 class="font-bold text-gray-800 dark:text-gray-200 text-lg">International Funds</h4>
+                                    <span class="text-emerald-600 font-bold text-xl bg-emerald-50 dark:bg-emerald-900 px-3 py-1 rounded-full">
+                                        ▲ 12.3%
+                                    </span>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="fund-icon w-10 h-10 rounded-full mr-3 flex items-center justify-center">
+                                                <span class="text-white font-bold">F</span>
+                                            </div>
+                                            <span class="text-sm font-medium">
+                                                <a href="indifund.html" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors cursor-pointer">
+                                                    Franklin India Feeder - Franklin US Opportunities Fund(G)
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <span class="text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-900 px-2 py-1 rounded-lg">▲ 13.8%</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="fund-icon w-10 h-10 rounded-full mr-3 flex items-center justify-center">
+                                                <span class="text-white font-bold">M</span>
+                                            </div>
+                                            <span class="text-sm font-medium">
+                                                <a href="indifund.html" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors cursor-pointer">
+                                                    Motilal Oswal Nasdaq 100 Fund of Fund(G)
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <span class="text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-900 px-2 py-1 rounded-lg">▲ 11.7%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+<!--Mutual Fund classes ends here-->
+
+ <!-- Banking Accessibility Section -->
+ <section class="py-20 bg-indigo-50 dark:bg-gray-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-20 animate-fadeInUp">
-        <h2 class="text-5xl font-extrabold text-white mb-6">Professional Investment Tools 🛠️</h2>
-        <p class="text-xl text-indigo-200 max-w-3xl mx-auto">Access advanced tools and resources to make informed
-          investment decisions and optimize your portfolio performance.</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        <!-- Bond Screener -->
-        <div class="glass-effect p-8 rounded-3xl shadow-xl animate-zoomIn delay-100 card-hover">
-          <div class="flex items-center mb-6">
-            <div
-              class="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center mr-4 animate-spin-slow">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z">
-                </path>
-              </svg>
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+            
+            <!-- Content Section -->
+            <div class="order-2 lg:order-1">
+                <div class="mb-8">
+                    <h2 class="text-3xl lg:text-4xl font-bold section-title mb-6 leading-tight">
+                        Banking Made More Accessible
+                    </h2>
+                    <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                        We believe financial services should be accessible to everyone, regardless of location or background. Our digital platform brings banking to your fingertips.
+                    </p>
+                </div>
+                
+                <!-- Features List -->
+                <div class="space-y-4 mb-8">
+                    
+                    <!-- Feature 1 -->
+                    <div class="feature-card feature-animation rounded-2xl p-6" style="--icon-color: #4f46e5; --icon-color-dark: #3730a3; animation-delay: 0.1s;">
+                        <div class="flex items-start space-x-4">
+                            <div class="icon-container w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-hand-holding-usd text-white text-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Easy Money Management</h3>
+                                <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                                    Manage your finances with intuitive digital tools and real-time tracking capabilities.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Feature 2 -->
+                    <div class="feature-card feature-animation rounded-2xl p-6" style="--icon-color: #059669; --icon-color-dark: #047857; animation-delay: 0.2s;">
+                        <div class="flex items-start space-x-4">
+                            <div class="icon-container w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-fingerprint text-white text-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Secure Transactions</h3>
+                                <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                                    Advanced security protocols ensure your money and data are always protected.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Feature 3 -->
+                    <div class="feature-card feature-animation rounded-2xl p-6" style="--icon-color: #ea580c; --icon-color-dark: #c2410c; animation-delay: 0.3s;">
+                        <div class="flex items-start space-x-4">
+                            <div class="icon-container w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-shield-alt text-white text-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Privacy Protection</h3>
+                                <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                                    Your personal information is encrypted with industry-leading security standards.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Feature 4 -->
+                    <div class="feature-card feature-animation rounded-2xl p-6" style="--icon-color: #7c3aed; --icon-color-dark: #6d28d9; animation-delay: 0.4s;">
+                        <div class="flex items-start space-x-4">
+                            <div class="icon-container w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-clock text-white text-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">24/7 Availability</h3>
+                                <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                                    Access your account and perform transactions anytime, anywhere you need.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Call to Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button class="cta-button px-8 py-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl">
+                        Get Started
+                    </button>
+                    <button class="cta-button px-8 py-3 border-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 rounded-xl hover:bg-indigo-600 hover:text-white transition-all duration-300 font-semibold">
+                        Learn More
+                    </button>
+                </div>
             </div>
-            <div>
-              <h3 class="text-2xl font-bold text-white">Bond Screener</h3>
-              <p class="text-indigo-300">Advanced Filtering</p>
+            
+            <!-- Image Section -->
+            <div class="relative order-1 lg:order-2 image-animation">
+                <div class="banking-image">
+                    <img src="components/banking made more accesible.webp" alt="Banking Made More Accessible" class="w-full h-80 object-cover rounded-2xl">
+                </div>
+                
+                <!-- Decorative Elements -->
+                <div class="absolute -top-4 -right-4 w-16 h-16 bg-indigo-400 rounded-full opacity-30 animate-pulse-slow"></div>
+                <div class="absolute -bottom-4 -left-4 w-12 h-12 bg-orange-400 rounded-full opacity-30 animate-pulse-slow" style="animation-delay: 1.5s;"></div>
+                <div class="absolute top-1/2 -right-8 w-8 h-8 bg-purple-400 rounded-full opacity-40 animate-pulse-slow" style="animation-delay: 2s;"></div>
             </div>
-          </div>
-          <p class="text-indigo-200 mb-6">Filter bonds by yield, rating, duration, and sector. Find the perfect bonds
-            for your investment strategy.</p>
-          <div class="space-y-3 mb-6">
-            <div class="flex items-center justify-between">
-              <span class="text-indigo-300">Available Bonds</span>
-              <span class="text-white font-semibold">2,847</span>
-            </div>
-            <div class="flex items-center justify-between">
-              <span class="text-indigo-300">Avg Rating</span>
-              <span class="text-white font-semibold">A+</span>
-            </div>
-            <div class="flex items-center justify-between">
-              <span class="text-indigo-300">Top Yield</span>
-              <span class="text-green-400 font-semibold">12.3%</span>
-            </div>
-          </div>
-          <button
-            class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 rounded-xl font-semibold hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 shadow-lg transform hover:scale-105">
-            Launch Screener
-          </button>
         </div>
-
-        <!-- Portfolio Analyzer -->
-        <div class="glass-effect p-8 rounded-3xl shadow-xl animate-zoomIn delay-200 card-hover">
-          <div class="flex items-center mb-6">
-            <div
-              class="w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full flex items-center justify-center mr-4 animate-pulse-gentle">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M9 17v-2a4 4 0 014-4h4m0 0V7a4 4 0 00-4-4H7a4 4 0 00-4 4v10a4 4 0 004 4h4" />
-              </svg>
-            </div>
-            <div>
-              <h3 class="text-2xl font-bold text-white">Portfolio Analyzer</h3>
-              <p class="text-indigo-300">Performance Insights</p>
-            </div>
-          </div>
-          <p class="text-indigo-200 mb-6">Analyze your portfolio's risk, yield, and diversification. Get actionable
-            insights to optimize your bond investments.</p>
-          <div class="space-y-3 mb-6">
-            <div class="flex items-center justify-between">
-              <span class="text-indigo-300">Portfolios Analyzed</span>
-              <span class="text-white font-semibold">1,124</span>
-            </div>
-            <div class="flex items-center justify-between">
-              <span class="text-indigo-300">Avg Risk Score</span>
-              <span class="text-white font-semibold">4.2/10</span>
-            </div>
-            <div class="flex items-center justify-between">
-              <span class="text-indigo-300">Top Yield</span>
-              <span class="text-green-400 font-semibold">10.8%</span>
-            </div>
-          </div>
-          <button
-            class="w-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white py-3 rounded-xl font-semibold hover:from-emerald-600 hover:to-teal-600 transition-all duration-300 shadow-lg transform hover:scale-105">
-            Analyze Portfolio
-          </button>
-        </div>
-        <!-- Risk Profiler -->
-        <div class="glass-effect p-8 rounded-3xl shadow-xl animate-zoomIn delay-300 card-hover">
-          <div class="flex items-center mb-6">
-            <div
-              class="w-16 h-16 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center mr-4 animate-bounce-gentle">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-              </svg>
-            </div>
-            <div>
-              <h3 class="text-2xl font-bold text-white">Risk Profiler</h3>
-              <p class="text-indigo-300">Personalized Assessment</p>
-            </div>
-          </div>
-          <p class="text-indigo-200 mb-6">Assess your risk tolerance and get tailored bond recommendations. Invest with
-            confidence and clarity.</p>
-          <div class="space-y-3 mb-6">
-            <div class="flex items-center justify-between">
-              <span class="text-indigo-300">Profiles Created</span>
-              <span class="text-white font-semibold">3,542</span>
-            </div>
-            <div class="flex items-center justify-between">
-              <span class="text-indigo-300">Avg Risk Level</span>
-              <span class="text-white font-semibold">Moderate</span>
-            </div>
-            <div class="flex items-center justify-between">
-              <span class="text-indigo-300">Top Recommendation</span>
-              <span class="text-green-400 font-semibold">Portfolio Mix</span>
-            </div>
-          </div>
-          <button
-            class="w-full bg-gradient-to-r from-yellow-500 to-orange-500 text-white py-3 rounded-xl font-semibold hover:from-yellow-600 hover:to-orange-600 transition-all duration-300 shadow-lg transform hover:scale-105">
-            Start Profiling
-          </button>
-        </div>
-      </div>
     </div>
-  </section>
-  <!-- Footer -->
-  <footer class="py-10 bg-indigo-950/80 text-indigo-200 text-center text-sm">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-        <div>&copy; 2024 Vedant Wealth. All rights reserved.</div>
-        <div class="flex space-x-4 justify-center">
-          <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
-          <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
-          <a href="#" class="hover:text-white transition-colors">Contact</a>
+</section>
+
+ <!-- Our Reach Section -->
+ <section class="py-20 bg-white dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+            
+            <!-- Image Section -->
+            <div class="relative order-2 lg:order-1">
+                <div class="reach-image">
+                    <img src="components/map.webp" alt="Pan India Presence - Nationwide Reach" class="w-full h-96 object-contain rounded-2xl">
+                </div>
+                
+                <!-- Decorative Elements -->
+                <div class="absolute -top-4 -right-4 w-16 h-16 bg-orange-400 rounded-full opacity-30 animate-pulse-slow"></div>
+                <div class="absolute -bottom-4 -left-4 w-12 h-12 bg-indigo-400 rounded-full opacity-30 animate-pulse-slow" style="animation-delay: 1s;"></div>
+            </div>
+            
+            <!-- Content Section -->
+            <div class="order-1 lg:order-2">
+                <div class="mb-8">
+                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+                        Nationwide Reach, 
+                        <span class="text-orange-500">Local Impact</span>
+                    </h2>
+                    <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                        Our extensive network ensures that digital banking services reach every corner of India, making financial inclusion a reality for millions across urban and rural areas.
+                    </p>
+                </div>
+                
+                <!-- Statistics Grid -->
+                <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="stats-card rounded-xl p-4 text-center">
+                        <div class="counter-animation">
+                            <h3 class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 mb-1">29</h3>
+                            <p class="text-sm font-semibold text-gray-700 dark:text-gray-300">States</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Coverage</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-card rounded-xl p-4 text-center">
+                        <div class="counter-animation" style="animation-delay: 0.2s;">
+                            <h3 class="text-2xl font-bold text-green-600 dark:text-green-400 mb-1">2400+</h3>
+                            <p class="text-sm font-semibold text-gray-700 dark:text-gray-300">Cities</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">& Towns</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-card rounded-xl p-4 text-center">
+                        <div class="counter-animation" style="animation-delay: 0.4s;">
+                            <h3 class="text-2xl font-bold text-orange-600 dark:text-orange-400 mb-1">40K</h3>
+                            <p class="text-sm font-semibold text-gray-700 dark:text-gray-300">Pin Codes</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Served</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-card rounded-xl p-4 text-center">
+                        <div class="counter-animation" style="animation-delay: 0.6s;">
+                            <h3 class="text-2xl font-bold text-purple-600 dark:text-purple-400 mb-1">18.25M+</h3>
+                            <p class="text-sm font-semibold text-gray-700 dark:text-gray-300">Transactions</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Per Year</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-card rounded-xl p-4 text-center">
+                        <div class="counter-animation" style="animation-delay: 0.8s;">
+                            <h3 class="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-1">50K</h3>
+                            <p class="text-sm font-semibold text-gray-700 dark:text-gray-300">End Users</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Active</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-card rounded-xl p-4 text-center">
+                        <div class="counter-animation" style="animation-delay: 1s;">
+                            <h3 class="text-2xl font-bold text-pink-600 dark:text-pink-400 mb-1">20K+</h3>
+                            <p class="text-sm font-semibold text-gray-700 dark:text-gray-300">Daily</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Transactions</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Call to Action -->
+                <div class="mt-8">
+                    <button class="px-8 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl">
+                        Explore Our Network
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </footer>
+</section>
+
+<!-- Achievements Section -->
+<section class="py-20 bg-gray-50 dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold section-title mb-4">Our Achievements</h2>
+            <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                We've built a strong network across India, empowering millions with digital financial services.
+            </p>
+            <div class="w-24 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 mx-auto mt-6 rounded-full"></div>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="achievement-card text-center rounded-2xl p-8 counter-animation" style="--icon-color: #4f46e5; --icon-color-dark: #3730a3; animation-delay: 0.1s;">
+                <div class="achievement-icon w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-users text-2xl text-white"></i>
+                </div>
+                <h3 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">172K+</h3>
+                <p class="text-gray-600 dark:text-gray-300 font-medium">Active Agents</p>
+            </div>
+
+            <div class="achievement-card text-center rounded-2xl p-8 counter-animation" style="--icon-color: #059669; --icon-color-dark: #047857; animation-delay: 0.2s;">
+                <div class="achievement-icon w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-store text-2xl text-white"></i>
+                </div>
+                <h3 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">11.8K</h3>
+                <p class="text-gray-600 dark:text-gray-300 font-medium">Distributors</p>
+            </div>
+
+            <div class="achievement-card text-center rounded-2xl p-8 counter-animation" style="--icon-color: #ea580c; --icon-color-dark: #c2410c; animation-delay: 0.3s;">
+                <div class="achievement-icon w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-crown text-2xl text-white"></i>
+                </div>
+                <h3 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">960+</h3>
+                <p class="text-gray-600 dark:text-gray-300 font-medium">Master Distributors</p>
+            </div>
+
+            <div class="achievement-card text-center rounded-2xl p-8 counter-animation" style="--icon-color: #7c3aed; --icon-color-dark: #6d28d9; animation-delay: 0.4s;">
+                <div class="achievement-icon w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-building text-2xl text-white"></i>
+                </div>
+                <h3 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">250+</h3>
+                <p class="text-gray-600 dark:text-gray-300 font-medium">Seva Kendras</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Company Overview Section -->
+<section id="about" class="py-20 bg-white dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <div class="relative order-2 lg:order-1 slide-in-left">
+                <div class="custom-image">
+                    <img src="components/company pic.webp" alt="Company Growth and Digital Excellence" class="w-full h-80 object-cover rounded-2xl">
+                </div>
+                
+                <!-- Decorative Elements -->
+                <div class="absolute -top-4 -right-4 w-16 h-16 bg-orange-400 rounded-full opacity-30 animate-pulse-slow"></div>
+                <div class="absolute -bottom-4 -left-4 w-12 h-12 bg-indigo-400 rounded-full opacity-30 animate-pulse-slow" style="animation-delay: 1s;"></div>
+            </div>
+            
+            <div class="order-1 lg:order-2 slide-in-right">
+                <h2 class="text-3xl lg:text-4xl font-bold section-title mb-6 leading-tight">
+                    Company Overview
+                </h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                    Vedant Asset is a leading digital financial services company committed to making banking accessible to every Indian citizen. We are part of the Digital India initiative.
+                </p>
+                <p class="text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
+                    Our mission is to bridge the gap between traditional banking and modern digital solutions, ensuring no one is left behind in the digital revolution.
+                </p>
+                <button class="cta-button px-8 py-3 border-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 rounded-xl hover:bg-indigo-600 hover:text-white transition-all duration-300 font-semibold">
+                    Learn More About Us
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Become Agent Section -->
+<section id="agent" class="py-20 bg-gray-50 dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <div class="order-2 lg:order-1 slide-in-left">
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+                    Become a <span class="text-orange-500">Vedant Agent</span>
+                </h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                    Join our network of successful agents and start earning while providing essential financial services to your community.
+                </p>
+                <p class="text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
+                    Whether you own a shop or want to start a new venture, becoming a Vedant Agent is the perfect opportunity to grow your income.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                    <button class="cta-button px-8 py-3 bg-orange-500 text-white rounded-xl hover:bg-orange-600 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl">
+                        Join as Agent
+                    </button>
+                    <button class="cta-button px-8 py-3 border-2 border-gray-400 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-400 hover:text-white transition-all duration-300 font-semibold">
+                        Learn More
+                    </button>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Agent Categories</h3>
+                    <div class="grid md:grid-cols-2 gap-3">
+                        <div class="category-item rounded-xl p-3 flex items-center">
+                            <i class="fas fa-store text-green-500 mr-3"></i>
+                            <span class="text-gray-700 dark:text-gray-300 font-medium">Kirana Shop</span>
+                        </div>
+                        <div class="category-item rounded-xl p-3 flex items-center">
+                            <i class="fas fa-mobile-alt text-blue-500 mr-3"></i>
+                            <span class="text-gray-700 dark:text-gray-300 font-medium">Mobile Shop</span>
+                        </div>
+                        <div class="category-item rounded-xl p-3 flex items-center">
+                            <i class="fas fa-desktop text-purple-500 mr-3"></i>
+                            <span class="text-gray-700 dark:text-gray-300 font-medium">Cyber Cafe</span>
+                        </div>
+                        <div class="category-item rounded-xl p-3 flex items-center">
+                            <i class="fas fa-pills text-red-500 mr-3"></i>
+                            <span class="text-gray-700 dark:text-gray-300 font-medium">Medical Store</span>
+                        </div>
+                        <div class="category-item rounded-xl p-3 flex items-center">
+                            <i class="fas fa-gas-pump text-orange-500 mr-3"></i>
+                            <span class="text-gray-700 dark:text-gray-300 font-medium">Petrol Pump</span>
+                        </div>
+                        <div class="category-item rounded-xl p-3 flex items-center">
+                            <i class="fas fa-plane text-indigo-500 mr-3"></i>
+                            <span class="text-gray-700 dark:text-gray-300 font-medium">Travel Agent</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="relative order-1 lg:order-2 slide-in-right">
+                <div class="custom-image">
+                    <img src="components/hero.png" alt="Join Our Network and Start Earning Today" class="w-full h-80 object-cover rounded-2xl">
+                </div>
+                
+                <!-- Decorative Elements -->
+                <div class="absolute -top-4 -right-4 w-16 h-16 bg-orange-400 rounded-full opacity-30 animate-pulse-slow"></div>
+                <div class="absolute -bottom-4 -left-4 w-12 h-12 bg-red-400 rounded-full opacity-30 animate-pulse-slow" style="animation-delay: 1.5s;"></div>
+            </div>
+        </div>
+    </div>
+</section>  
+  
+
+     <!-- Book a Call Section -->
+     <section id="contact" class="relative py-24 overflow-hidden">
+        <!-- Animated Background -->
+        <div class="absolute inset-0 gradient-bg opacity-10"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"></div>
+        
+        <!-- Decorative Elements -->
+        <div class="absolute top-20 left-10 w-32 h-32 bg-indigo-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 pulse-glow"></div>
+        <div class="absolute bottom-20 right-10 w-40 h-40 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 pulse-glow" style="animation-delay: 1s;"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 xl:gap-20 items-center max-w-6xl mx-auto">
+                <!-- Form Section -->
+                <div class="relative z-10">
+                    <div class="mb-12">
+                        <span class="inline-block px-4 py-2 bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 rounded-full text-sm font-semibold mb-4 hover-lift transition-all duration-300">
+                            Get In Touch
+                        </span>
+                        <h2 class="text-5xl lg:text-6xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-6 leading-tight">
+                            Book Your Call
+                        </h2>
+                        <p class="text-xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-lg">
+                            Connect with our expert team to discover how we can accelerate your financial growth and unlock new opportunities.
+                        </p>
+                    </div>
+                    
+                    <form class="space-y-8 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-white/20">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="relative">
+                                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Full Name</label>
+                                <div class="relative">
+                                    <i class="fas fa-user absolute left-4 top-4 text-indigo-500"></i>
+                                    <input type="text" placeholder="Enter your full name" class="w-full pl-12 pr-4 py-4 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 dark:bg-gray-700 dark:text-white transition-all duration-300 input-focus">
+                                </div>
+                            </div>
+                            <div class="relative">
+                                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Phone Number</label>
+                                <div class="relative">
+                                    <i class="fas fa-phone absolute left-4 top-4 text-indigo-500"></i>
+                                    <input type="tel" placeholder="Enter your phone" class="w-full pl-12 pr-4 py-4 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 dark:bg-gray-700 dark:text-white transition-all duration-300 input-focus">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="relative">
+                            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Email Address</label>
+                            <div class="relative">
+                                <i class="fas fa-envelope absolute left-4 top-4 text-indigo-500"></i>
+                                <input type="email" placeholder="Enter your email" class="w-full pl-12 pr-4 py-4 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 dark:bg-gray-700 dark:text-white transition-all duration-300 input-focus">
+                            </div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <div class="relative">
+                                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Service Interest</label>
+                                <div class="relative">
+                                    <i class="fas fa-cogs absolute left-4 top-4 text-indigo-500 z-10"></i>
+                                    <select class="w-full pl-12 pr-4 py-4 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 dark:bg-gray-700 dark:text-white transition-all duration-300 appearance-none">
+                                        <option>Select Service</option>
+                                        <option>Banking Solutions</option>
+                                        <option>Travel Services</option>
+                                        <option>AEPS Solutions</option>
+                                        <option>Insurance Plans</option>
+                                        <option>DTH & Utilities</option>
+                                        <option>Entertainment</option>
+                                    </select>
+                                    <i class="fas fa-chevron-down absolute right-4 top-4 text-gray-400"></i>
+                                </div>
+                            </div>
+                            <div class="relative">
+                                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Preferred Date</label>
+                                <div class="relative">
+                                    <i class="fas fa-calendar-alt absolute left-4 top-4 text-indigo-500"></i>
+                                    <input type="date" class="w-full pl-12 pr-4 py-4 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 dark:bg-gray-700 dark:text-white transition-all duration-300 input-focus">
+                                </div>
+                            </div>
+                            <div class="relative">
+                                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Preferred Time</label>
+                                <div class="relative">
+                                    <i class="fas fa-clock absolute left-4 top-4 text-indigo-500 z-10"></i>
+                                    <select class="w-full pl-12 pr-4 py-4 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 dark:bg-gray-700 dark:text-white transition-all duration-300 appearance-none">
+                                        <option>Select Time</option>
+                                        <option>09:00 AM</option>
+                                        <option>10:00 AM</option>
+                                        <option>11:00 AM</option>
+                                        <option>12:00 PM</option>
+                                        <option>02:00 PM</option>
+                                        <option>03:00 PM</option>
+                                        <option>04:00 PM</option>
+                                    </select>
+                                    <i class="fas fa-chevron-down absolute right-4 top-4 text-gray-400"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="group relative w-full px-8 py-5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 overflow-hidden">
+                            <span class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
+                            <span class="relative flex items-center justify-center">
+                                <i class="fas fa-paper-plane mr-3"></i>
+                                Schedule My Call
+                            </span>
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Support Card Section -->
+                <div class="relative z-10">
+                    <div class="relative float-animation">
+                        <!-- Main Support Card -->
+                        <div class="glass-effect rounded-3xl p-12 shadow-2xl border border-white/30 bg-gradient-to-br from-white/90 to-white/70 dark:from-gray-800/90 dark:to-gray-700/70">
+                            <div class="text-center">
+                                <!-- Animated Icon Container -->
+                                <div class="relative inline-block mb-8">
+                                    <div class="w-24 h-24 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg transform rotate-6 hover:rotate-12 transition-transform duration-300">
+                                        <i class="fas fa-headset text-4xl text-white"></i>
+                                    </div>
+                                    <div class="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center animate-bounce">
+                                        <div class="w-3 h-3 bg-white rounded-full"></div>
+                                    </div>
+                                </div>
+                                
+                                <h3 class="text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent dark:from-white dark:to-gray-300 mb-4">
+                                    24/7 Expert Support
+                                </h3>
+                                <p class="text-gray-600 dark:text-gray-300 text-lg mb-8 leading-relaxed">
+                                    Our dedicated team is always ready to assist you with personalized solutions and instant support.
+                                </p>
+                                
+                                <!-- Support Features -->
+                                <div class="grid grid-cols-2 gap-4 mb-8">
+                                    <div class="bg-green-50 dark:bg-green-900/30 rounded-xl p-4 hover-lift transition-all duration-300">
+                                        <i class="fas fa-clock text-green-600 text-xl mb-2"></i>
+                                        <p class="text-sm font-semibold text-green-700 dark:text-green-400">24/7 Available</p>
+                                    </div>
+                                    <div class="bg-blue-50 dark:bg-blue-900/30 rounded-xl p-4 hover-lift transition-all duration-300">
+                                        <i class="fas fa-users text-blue-600 text-xl mb-2"></i>
+                                        <p class="text-sm font-semibold text-blue-700 dark:text-blue-400">Expert Team</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Contact Methods -->
+                                <div class="space-y-3">
+                                    <div class="flex items-center justify-center space-x-3 text-gray-600 dark:text-gray-300">
+                                        <i class="fas fa-phone-alt text-indigo-500"></i>
+                                        <span class="font-medium">+91 1800-123-4567</span>
+                                    </div>
+                                    <div class="flex items-center justify-center space-x-3 text-gray-600 dark:text-gray-300">
+                                        <i class="fas fa-envelope text-indigo-500"></i>
+                                        <span class="font-medium">support@vedantasset.com</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Floating Decorative Elements -->
+                        <div class="absolute -top-6 -right-6 w-16 h-16 bg-gradient-to-br from-orange-400 to-pink-500 rounded-2xl pulse-glow transform rotate-12"></div>
+                        <div class="absolute -bottom-6 -left-6 w-12 h-12 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-xl pulse-glow transform -rotate-12" style="animation-delay: 1.5s;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enhanced Footer -->
+    <footer class="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white overflow-hidden">
+        <!-- Animated Background Pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0" style="background-image: radial-gradient(circle at 25% 25%, rgba(99, 102, 241, 0.3) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(168, 85, 247, 0.3) 0%, transparent 50%);"></div>
+        </div>
+        
+        <div class="relative py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 max-w-6xl mx-auto">
+                    
+                    <!-- Company Info -->
+                    <div class="lg:col-span-1">
+                        <div class="flex items-center space-x-3 mb-6">
+                            <img src="components/vedant asset.webp" alt="Vedant Asset Logo" class="w-12 h-12 rounded-lg">
+                            <div>
+                                <p class="text-sm text-indigo-300 font-medium">Digital Banking Solutions</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 mb-8 leading-relaxed text-base">
+                            Empowering Digital India with comprehensive financial services and innovative solutions for a brighter tomorrow.
+                        </p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center text-gray-400 hover:text-white hover:bg-indigo-600 transition-all duration-300 hover-lift">
+                                <i class="fab fa-facebook text-lg"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-500 transition-all duration-300 hover-lift">
+                                <i class="fab fa-twitter text-lg"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-700 transition-all duration-300 hover-lift">
+                                <i class="fab fa-linkedin text-lg"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center text-gray-400 hover:text-white hover:bg-pink-600 transition-all duration-300 hover-lift">
+                                <i class="fab fa-instagram text-lg"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center text-gray-400 hover:text-white hover:bg-red-600 transition-all duration-300 hover-lift">
+                                <i class="fab fa-youtube text-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Services -->
+                    <div>
+                        <h3 class="text-xl font-bold mb-8 text-white relative">
+                            Our Services
+                            <div class="absolute -bottom-2 left-0 w-12 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"></div>
+                        </h3>
+                        <ul class="space-y-4 text-gray-400">
+                            <li><a href="#" class="hover:text-white transition-colors duration-300">
+                                Banking Solutions
+                            </a></li>
+                            <li><a href="#" class="hover:text-white transition-colors duration-300">
+                                Travel Services
+                            </a></li>
+                            <li><a href="#" class="hover:text-white transition-colors duration-300">
+                                AEPS Solutions
+                            </a></li>
+                            <li><a href="#" class="hover:text-white transition-colors duration-300">
+                                Insurance Plans
+                            </a></li>
+                            <li><a href="#" class="hover:text-white transition-colors duration-300">
+                                DTH & Utilities
+                            </a></li>
+                            <li><a href="#" class="hover:text-white transition-colors duration-300">
+                                Entertainment
+                            </a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Company Links -->
+                    <div>
+                        <h3 class="text-xl font-bold mb-8 text-white relative">
+                            Know Us
+                            <div class="absolute -bottom-2 left-0 w-12 h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
+                        </h3>
+                        <ul class="space-y-4 text-gray-400">
+                            <li><a href="#" class="hover:text-white transition-colors duration-300">
+                                About Us
+                            </a></li>
+                            <li><a href="#" class="hover:text-white transition-colors duration-300">
+                                Our Team
+                            </a></li>
+                            <li><a href="#" class="hover:text-white transition-colors duration-300">
+                                Careers
+                            </a></li>
+                            <li><a href="#" class="hover:text-white transition-colors duration-300">
+                                Blog
+                            </a></li>
+                            <li><a href="#" class="hover:text-white transition-colors duration-300">
+                                Gallery
+                            </a></li>
+                            <li><a href="#" class="hover:text-white transition-colors duration-300">
+                                Contact Us
+                            </a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Contact Info -->
+                    <div>
+                        <h3 class="text-xl font-bold mb-8 text-white relative">
+                            Contact Us
+                            <div class="absolute -bottom-2 left-0 w-12 h-1 bg-gradient-to-r from-orange-500 to-red-500 rounded-full"></div>
+                        </h3>
+                        <div class="space-y-6 text-gray-400">
+                            <div class="group">
+                                <p class="font-semibold text-white mb-1">Address</p>
+                                <p class="text-sm">Mumbai, Maharashtra, India</p>
+                            </div>
+                            <div class="group">
+                                <p class="font-semibold text-white mb-1">Email</p>
+                                <p class="text-sm">info@vedantasset.com</p>
+                            </div>
+                            <div class="group">
+                                <p class="font-semibold text-white mb-1">Phone</p>
+                                <p class="text-sm">+91 1800-123-4567</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Footer Bottom -->
+                <div class="border-t border-gray-700 pt-12 text-center">
+                    <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                        <p class="text-gray-400 text-base">
+                            &copy; 2023 Vedant Asset Ltd. All Rights Reserved.
+                        </p>
+                        <div class="flex space-x-8 text-sm">
+                            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Privacy Policy</a>
+                            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Terms of Service</a>
+                            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Cookie Policy</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scroll-to-top" class="fixed bottom-8 right-8 w-12 h-12 bg-indigo-600 text-white rounded-full shadow-lg hover:bg-indigo-700 transition-colors opacity-0 invisible">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+
+
+    <!-- JavaScript -->
+  <script src="script.js"></script>
 </body>
-
 </html>

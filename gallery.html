@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clean Gallery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+        
+        .gallery-container {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .gallery-card {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.1),
+                0 1px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .gallery-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.15),
+                0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gallery-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-card:hover::before {
+            opacity: 1;
+        }
+        
+        .image-placeholder {
+            background: linear-gradient(145deg, #e0e7ff, #c7d2fe);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-title {
+            background: linear-gradient(135deg, #4338ca 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .filter-btn {
+            background: #ffffff;
+            border: 2px solid #e5e7eb;
+            color: #6b7280;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .filter-btn:hover {
+            border-color: #6366f1;
+            color: #6366f1;
+            transform: translateY(-2px);
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            border-color: transparent;
+        }
+        
+        .modal-overlay {
+            backdrop-filter: blur(15px);
+            background: rgba(0, 0, 0, 0.8);
+        }
+        
+        .modal-content {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.3s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.4s; }
+        .gallery-item:nth-child(5) { animation-delay: 0.5s; }
+        .gallery-item:nth-child(6) { animation-delay: 0.6s; }
+        .gallery-item:nth-child(7) { animation-delay: 0.7s; }
+        .gallery-item:nth-child(8) { animation-delay: 0.8s; }
+        .gallery-item:nth-child(9) { animation-delay: 0.9s; }
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen">
+    <header class="fixed top-0 left-0 right-0 z-40 bg-white dark:bg-gray-900 shadow-lg border-b border-gray-200 dark:border-gray-700">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+        <div class="flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center space-x-3">
+                <div class="relative">
+                    <img src="components/logo.webp" alt="Vedant Asset Logo" class="w-12 h-12 rounded-lg">
+                    <div class="absolute -top-1 -right-1 w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>
+                </div>
+                <span class="hidden sm:block text-sm text-gray-600 dark:text-gray-300">Digital Banking Solutions</span>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden lg:flex items-center space-x-8">
+                <a href="#home" class="text-gray-800 dark:text-gray-200 hover:text-orange-500 transition-colors font-medium">Home</a>
+                <a href="#about" class="text-gray-800 dark:text-gray-200 hover:text-orange-500 transition-colors font-medium">About Us</a>
+                
+                <!-- Products Dropdown -->
+                <div class="relative dropdown">
+                    <button class="text-gray-800 dark:text-gray-200 hover:text-orange-500 transition-colors font-medium flex items-center space-x-1">
+                        <span>Products</span>
+                        <i class="fas fa-chevron-down text-xs"></i>
+                    </button>
+                    <div class="dropdown-menu absolute top-full left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-600">
+                        <a href="#developer" class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-700 hover:text-orange-600 transition-colors">Vedant Developer</a>
+                        <a href="#agent" class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-700 hover:text-orange-600 transition-colors">Vedant Agent</a>
+                        <a href="#distributor" class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-700 hover:text-orange-600 transition-colors">Vedant Distributor</a>
+                        <a href="#master" class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-700 hover:text-orange-600 transition-colors">Vedant Master Distributor</a>
+                    </div>
+                </div>
+                
+                <!-- Investors Dropdown -->
+                <div class="relative dropdown">
+                    <button class="text-gray-800 dark:text-gray-200 hover:text-orange-500 transition-colors font-medium flex items-center space-x-1">
+                        <span>Investors</span>
+                        <i class="fas fa-chevron-down text-xs"></i>
+                    </button>
+                    <div class="dropdown-menu absolute top-full left-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-600">
+                        <a href="#investor-relations" class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-700 hover:text-orange-600 transition-colors">Investor Relations</a>
+                        <a href="#reports" class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-700 hover:text-orange-600 transition-colors">Financial Reports</a>
+                        <a href="#announcements" class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-700 hover:text-orange-600 transition-colors">Announcements</a>
+                    </div>
+                </div>
+                
+                <a href="#contact" class="text-gray-800 dark:text-gray-200 hover:text-orange-500 transition-colors font-medium">Contact Us</a>
+            </div>
+
+            <!-- CTA Buttons and Theme Toggle -->
+            <div class="hidden lg:flex items-center space-x-4">
+                <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-300 border border-gray-200 dark:border-gray-600">
+                    <i class="fas fa-sun text-yellow-500 dark:hidden"></i>
+                    <i class="fas fa-moon text-blue-400 hidden dark:block"></i>
+                </button>
+                <button class="px-5 py-2 text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 transition-colors font-medium border border-orange-200 dark:border-orange-600 rounded-lg hover:bg-orange-50 dark:hover:bg-orange-900">Login</button>
+                <button class="px-5 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-all duration-300 shadow-md hover:shadow-lg font-medium">Register</button>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="lg:hidden flex items-center space-x-2">
+                <button id="theme-toggle-mobile" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-300 border border-gray-200 dark:border-gray-600">
+                    <i class="fas fa-sun text-yellow-500 dark:hidden"></i>
+                    <i class="fas fa-moon text-blue-400 hidden dark:block"></i>
+                </button>
+                <button class="p-2" id="mobile-menu-button">
+                    <i class="fas fa-bars text-gray-700 dark:text-gray-300"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="lg:hidden hidden mt-4 pb-4 border-t border-gray-200 dark:border-gray-700 pt-4" id="mobile-menu">
+            <div class="flex flex-col space-y-3">
+                <a href="#home" class="text-gray-800 dark:text-gray-200 hover:text-orange-500 py-2 font-medium">Home</a>
+                <a href="#about" class="text-gray-800 dark:text-gray-200 hover:text-orange-500 py-2 font-medium">About Us</a>
+                <div class="pl-4 space-y-2">
+                    <p class="text-sm font-semibold text-orange-600 dark:text-orange-400">Products</p>
+                    <a href="#developer" class="block text-gray-700 dark:text-gray-300 hover:text-orange-500 py-1">Vedant Developer</a>
+                    <a href="#agent" class="block text-gray-700 dark:text-gray-300 hover:text-orange-500 py-1">Vedant Agent</a>
+                    <a href="#distributor" class="block text-gray-700 dark:text-gray-300 hover:text-orange-500 py-1">Vedant Distributor</a>
+                    <a href="#master" class="block text-gray-700 dark:text-gray-300 hover:text-orange-500 py-1">Vedant Master Distributor</a>
+                </div>
+                <div class="pl-4 space-y-2">
+                    <p class="text-sm font-semibold text-orange-600 dark:text-orange-400">Investors</p>
+                    <a href="#investor-relations" class="block text-gray-700 dark:text-gray-300 hover:text-orange-500 py-1">Investor Relations</a>
+                    <a href="#reports" class="block text-gray-700 dark:text-gray-300 hover:text-orange-500 py-1">Financial Reports</a>
+                    <a href="#announcements" class="block text-gray-700 dark:text-gray-300 hover:text-orange-500 py-1">Announcements</a>
+                </div>
+                <a href="#contact" class="text-gray-800 dark:text-gray-200 hover:text-orange-500 py-2 font-medium">Contact Us</a>
+                <div class="flex space-x-4 pt-4">
+                    <button class="px-4 py-2 text-orange-600 dark:text-orange-400 font-medium border border-orange-200 dark:border-orange-600 rounded-lg hover:bg-orange-50 dark:hover:bg-orange-900">Login</button>
+                    <button class="px-4 py-2 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-700">Register</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+    <!-- Gallery Section -->
+    <section class="py-16 px-4 md:px-8">
+        <div class="max-w-7xl mx-auto">
+            <!-- Section Header -->
+            <h2 class="text-5xl md:text-6xl font-bold section-title">
+                Gallery
+            </h2>
+
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="awards">Awards</button>
+                <button class="filter-btn" data-filter="office">Office</button>
+                <button class="filter-btn" data-filter="events">Events</button>
+                <button class="filter-btn" data-filter="team">Team</button>
+            </div>
+
+            <!-- Gallery Container -->
+            <div class="gallery-container rounded-3xl p-8">
+                <!-- Gallery Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="galleryGrid">
+                    <!-- Gallery Item 1 - Award Ceremony -->
+                    <div class="gallery-card gallery-item h-64" data-category="awards" data-image="1">
+                        <div class="image-placeholder h-full">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mb-2 mx-auto">
+                                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                    </svg>
+                                </div>
+                                <div class="text-sm text-gray-500 font-medium">Award Ceremony</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 2 - Team Photo -->
+                    <div class="gallery-card gallery-item h-64" data-category="team" data-image="2">
+                        <div class="image-placeholder h-full">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center mb-2 mx-auto">
+                                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path>
+                                    </svg>
+                                </div>
+                                <div class="text-sm text-gray-500 font-medium">Team Photo</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 3 - Office Space -->
+                    <div class="gallery-card gallery-item h-64" data-category="office" data-image="3">
+                        <div class="image-placeholder h-full">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center mb-2 mx-auto">
+                                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <div class="text-sm text-gray-500 font-medium">Office Space</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 4 - Event -->
+                    <div class="gallery-card gallery-item h-64" data-category="events" data-image="4">
+                        <div class="image-placeholder h-full">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center mb-2 mx-auto">
+                                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <div class="text-sm text-gray-500 font-medium">Corporate Event</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 5 - Achievement -->
+                    <div class="gallery-card gallery-item h-64" data-category="awards" data-image="5">
+                        <div class="image-placeholder h-full">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-gradient-to-br from-red-400 to-pink-500 rounded-full flex items-center justify-center mb-2 mx-auto">
+                                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <div class="text-sm text-gray-500 font-medium">Achievement</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 6 - Conference Room -->
+                    <div class="gallery-card gallery-item h-64" data-category="office" data-image="6">
+                        <div class="image-placeholder h-full">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-gradient-to-br from-teal-400 to-cyan-500 rounded-full flex items-center justify-center mb-2 mx-auto">
+                                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <div class="text-sm text-gray-500 font-medium">Conference Room</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 7 - Networking Event -->
+                    <div class="gallery-card gallery-item h-64" data-category="events" data-image="7">
+                        <div class="image-placeholder h-full">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center mb-2 mx-auto">
+                                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"></path>
+                                        <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"></path>
+                                    </svg>
+                                </div>
+                                <div class="text-sm text-gray-500 font-medium">Networking</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 8 - Team Meeting -->
+                    <div class="gallery-card gallery-item h-64" data-category="team" data-image="8">
+                        <div class="image-placeholder h-full">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-gradient-to-br from-violet-400 to-purple-500 rounded-full flex items-center justify-center mb-2 mx-auto">
+                                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                                <div class="text-sm text-gray-500 font-medium">Team Meeting</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 9 - Recognition -->
+                    <div class="gallery-card gallery-item h-64" data-category="awards" data-image="9">
+                        <div class="image-placeholder h-full">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-gradient-to-br from-rose-400 to-red-500 rounded-full flex items-center justify-center mb-2 mx-auto">
+                                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <div class="text-sm text-gray-500 font-medium">Recognition</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for Image Preview -->
+    <div id="imageModal" class="fixed inset-0 z-50 hidden modal-overlay">
+        <div class="min-h-screen px-4 text-center">
+            <div class="fixed inset-0" onclick="closeModal()"></div>
+            
+            <div class="inline-block w-full max-w-4xl p-8 my-8 overflow-hidden text-left align-middle transition-all transform modal-content">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 id="modalTitle" class="text-2xl font-bold text-gray-800">Image Preview</h3>
+                    <button onclick="closeModal()" class="p-2 rounded-full hover:bg-gray-100 transition-colors">
+                        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="image-placeholder h-96 rounded-2xl">
+                    <div class="w-32 h-32 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-full flex items-center justify-center mx-auto">
+                        <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const filter = button.getAttribute('data-filter');
+                
+                galleryItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.classList.add('fade-in-up');
+                        }, 50);
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('imageModal');
+        const modalTitle = document.getElementById('modalTitle');
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const imageId = item.getAttribute('data-image');
+                const category = item.getAttribute('data-category');
+                
+                modalTitle.textContent = `${category.charAt(0).toUpperCase() + category.slice(1)} - Image ${imageId}`;
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Initialize animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+
+        galleryItems.forEach(item => {
+            observer.observe(item);
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
